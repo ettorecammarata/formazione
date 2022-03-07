@@ -1,9 +1,10 @@
 package com.besidetech.Training.model;
 
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Entity
 @Table(name="myt_user")
@@ -85,7 +86,18 @@ public class User implements Serializable {
     @Column(name="notification")
     private String notification ;
 
-    public User()  {}
+    @OneToMany(mappedBy = "user" , fetch=FetchType.LAZY )
+    Set<UserProject> projects = new TreeSet<>();
+
+    public Set<UserProject> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<UserProject> projects) {
+        this.projects = projects;
+    }
+
+    public User()  {} // costruttore vuoto
 
     public Integer getId() {
         return id;
