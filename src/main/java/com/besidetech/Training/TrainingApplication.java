@@ -1,10 +1,10 @@
 package com.besidetech.Training;
 
+import com.besidetech.Training.model.Charge;
 import com.besidetech.Training.model.Project;
 import com.besidetech.Training.model.User;
-import com.besidetech.Training.model.UserProject;
-import com.besidetech.Training.repo.ProjectRepository;
-import com.besidetech.Training.repo.UserRepository;
+import com.besidetech.Training.repo.ChargeRepository;
+import com.besidetech.Training.service.ChargeService;
 import com.besidetech.Training.service.ProjectService;
 import com.besidetech.Training.service.UserProjectService;
 import com.besidetech.Training.service.UserService;
@@ -15,10 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
-import javax.swing.text.html.Option;
-import java.util.Date;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @SpringBootApplication
 public class TrainingApplication {
@@ -29,7 +26,11 @@ public class TrainingApplication {
 	ProjectService projectService ;
 	@Autowired
 	UserProjectService userProjectService ;
+	@Autowired
+	ChargeService chargeService;
 
+	@Autowired
+	ChargeRepository chargeRepository ;
 
 	public static void main(String[] args) {
 		SpringApplication.run(TrainingApplication.class, args);
@@ -85,7 +86,35 @@ public class TrainingApplication {
 			//System.out.println(userProjectService.findById(391L).get() );
 
 			//userProjectService.findByUserId(46).getId() ;
-			System.out.println(userProjectService.findByUserId(46).getUser());
+			//System.out.println(userProjectService.findByUserId(46).getUser());
+			//System.out.println(userService.findByNameAndSurname("nome" , "surname"));
+
+
+			User io = userService.findById(46).get() ;
+			Project pro = projectService.findById(1).get() ;
+
+
+			List<Charge> ls = new ArrayList<>() ;
+			Charge c = new Charge () ;
+			c.setCreated(new Date () );
+			c.setCreated_by(46);
+			c.setHours(5.0f);
+			c.setDay(new Date());
+			c.setUser(io);
+			c.setProject(pro);
+			
+			//chargeService.save(ls);
+
+			Date start = new Date();
+			start.setDate(7);
+
+			Date end = new Date() ;
+
+			List<Charge> lista = chargeRepository.findByUserIdAndDayBetween(46 ,start , end  ) ;
+
+			System.out.println("dimensione : " +lista.size());
+			System.out.println("----END---");
+
 		};
 	}
 }

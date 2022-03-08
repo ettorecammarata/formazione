@@ -8,4 +8,5 @@ public interface UserService {
 
     Optional<User> findById (Integer id ) ;
     public void save (User user ) ;
+    //User findByNameAndSurname (String Name , String Surname) ;//prova query
 }

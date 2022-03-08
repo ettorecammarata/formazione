@@ -35,4 +35,10 @@ public class UserServiceImpl implements  UserService {
     public void save(User user) {
         repository.save(user) ;
     }
+
+ /*   @Override
+    public User findByNameAndSurname(String Name, String Surname) {
+        return repository.findByNameAndSurname(Name , Surname); // prova query
+    }
+ */
 }

@@ -89,6 +89,9 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user" , fetch=FetchType.LAZY )
     Set<UserProject> projects = new TreeSet<>();
 
+    @OneToMany(mappedBy = "user" , fetch=FetchType.LAZY )
+    Set<Charge> charges = new TreeSet<>() ;
+
     public Set<UserProject> getProjects() {
         return projects;
     }
