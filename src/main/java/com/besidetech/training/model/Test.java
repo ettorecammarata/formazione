@@ -1,4 +1,4 @@
-package com.besidetech.Training.model;
+package com.besidetech.training.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

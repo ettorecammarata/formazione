@@ -1,4 +1,4 @@
-package com.besidetech.Training.model;
+package com.besidetech.training.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,6 +9,7 @@ import java.util.TreeSet;
 @Entity
 @Table(name="myt_project")
 public class Project implements Serializable {
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id ; // identificiatore del progetto
@@ -34,8 +35,8 @@ public class Project implements Serializable {
     @Column(name="description")
     private  String description ; //
 
-    @Column(name="description_id")
-    private Integer desctiptionId  ; //
+//    @Column(name="description_id")
+//    private Integer desctiptionId  ; //
 
     @Column(name="status")
     private String status  ; //
@@ -141,13 +142,13 @@ public class Project implements Serializable {
         this.description = description;
     }
 
-    public Integer getDesctiptionId() {
-        return desctiptionId;
-    }
-
-    public void setDesctiptionId(Integer desctiptionId) {
-        this.desctiptionId = desctiptionId;
-    }
+//    public Integer getDesctiptionId() {
+//        return desctiptionId;
+//    }
+//
+//    public void setDesctiptionId(Integer desctiptionId) {
+//        this.desctiptionId = desctiptionId;
+//    }
 
     public String getStatus() {
         return status;

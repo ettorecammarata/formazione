@@ -1,4 +1,4 @@
-package com.besidetech.Training.model;
+package com.besidetech.training.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,13 +17,13 @@ public class User implements Serializable {
     @Column(name="created")
     private Date created ; // rappresenta la data di creazione dell utente
 
-    @Column(name="creted_by")
-    private Integer creted_by ;// rappresenta l id dell'user che effettua la creazione
+    @Column(name="created_by")
+    private Integer created_by ;// rappresenta l id dell'user che effettua la creazione
 
     @Column(name="last_upd")
     private Date last_update ; // data ultimo aggiornamento
 
-    @Column(name="last_update_by")
+    @Column(name="last_upd_by")
     private Integer last_update_by ; // rappresenta l id dell user che effettua l'aggiornamento
 
     @Column(name="username")
@@ -118,12 +118,12 @@ public class User implements Serializable {
         this.created = created;
     }
 
-    public Integer getCreted_by() {
-        return creted_by;
+    public Integer getCreated_by() {
+        return created_by;
     }
 
-    public void setCreted_by(Integer creted_by) {
-        this.creted_by = creted_by;
+    public void setCretaed_by(Integer created_by) {
+        this.created_by = created_by;
     }
 
     public Date getLast_update() {
@@ -305,31 +305,8 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", created=" + created +
-                ", creted_by=" + creted_by +
-                ", last_update=" + last_update +
-                ", last_update_by=" + last_update_by +
+                "id= " + id +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", active=" + active +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", gender=" + gender +
-                ", level='" + level + '\'' +
-                ", phone='" + phone + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", load_cost=" + load_cost +
-                ", bill_code=" + bill_code +
-                ", seat_charge=" + seat_charge +
-                ", daily_hours=" + daily_hours +
-                ", profile_id=" + profile_id +
-                ", note='" + note + '\'' +
-                ", confirm_key=" + confirm_key +
-                ", avatar='" + avatar + '\'' +
-                ", page_size=" + page_size +
-                ", notification='" + notification + '\'' +
                 '}';
     }
 }

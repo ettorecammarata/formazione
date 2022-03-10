@@ -1,50 +1,50 @@
-package com.besidetech.Training.model;
+package com.besidetech.training.model;
 
 
 import javax.persistence.*;
-import javax.xml.crypto.Data;
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name="myt_charge")
-public class Charge implements Serializable {
+public class Charge implements Serializable  {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="created")
+    @Column(name = "created")
     private Date created;
 
-    @Column(name="created_by")
+    @Column(name = "created_by")
     private Integer created_by;
 
-    @Column(name="last_upd")
+    @Column(name = "last_upd")
     private Date last_upd;
 
-    @Column(name="last_upd_by")
+    @Column(name = "last_upd_by")
     private Integer last_upd_by;
 
-    @Column(name="task_id")
+    @Column(name = "task_id")
     private Integer task_id;
 
-    @Column(name="day")
+    @Column(name = "day")
     private Date day;
 
-    @Column(name="hours")
+    @Column(name = "hours")
     private Float hours;
-
-
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user ;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
 
-    public Charge() {  }
+    public Charge() {
+    }
 
     public Integer getId() {
         return id;
@@ -124,6 +124,44 @@ public class Charge implements Serializable {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Charge{" +
+                "id=" + id +
+                "day=" + day +
+                ", created=" + created +
+                ", user=" + user +
+                ", project=" + project.getId() +
+                '}';
+    }
+
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Charge other = (Charge) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
     }
 
 

@@ -1,4 +1,4 @@
-package com.besidetech.Training;
+package com.besidetech.training;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

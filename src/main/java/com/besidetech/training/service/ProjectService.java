@@ -1,6 +1,6 @@
-package com.besidetech.Training.service;
+package com.besidetech.training.service;
 
-import com.besidetech.Training.model.Project;
+import com.besidetech.training.model.Project;
 
 import java.util.Optional;
 

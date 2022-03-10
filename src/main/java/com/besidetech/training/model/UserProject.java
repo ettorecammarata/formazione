@@ -1,4 +1,4 @@
-package com.besidetech.Training.model;
+package com.besidetech.training.model;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,10 +13,10 @@ public class UserProject {
     private Long id;
 
     @Column (name = "created")
-    private Date creted  ;
+    private Date created;
 
     @Column (name ="last_upd" )
-    private Date lasyUpdate ;
+    private Date lastUpdate;
 
     @Column (name = "rollon_date" )
     private Date rollOnDate ;
@@ -34,20 +34,20 @@ public class UserProject {
 
     public UserProject () {}
 
-    public Date getCreted() {
-        return creted;
+    public Date getCreated() {
+        return created;
     }
 
-    public void setCreted(Date creted) {
-        this.creted = creted;
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
-    public Date getLasyUpdate() {
-        return lasyUpdate;
+    public Date getLastUpdate() {
+        return lastUpdate;
     }
 
-    public void setLasyUpdate(Date lasyUpdate) {
-        this.lasyUpdate = lasyUpdate;
+    public void setLastUpdate(Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 
 
@@ -95,7 +95,7 @@ public class UserProject {
     public String toString() {
         return "UserProject{" +
                 "id=" + id +
-                "user=" + user +
+                user +
                 ", project=" + project +
                 '}';
     }

@@ -1,7 +1,7 @@
-package com.besidetech.Training.service;
+package com.besidetech.training.service;
 
-import com.besidetech.Training.model.Project;
-import com.besidetech.Training.repo.ProjectRepository;
+import com.besidetech.training.model.Project;
+import com.besidetech.training.repo.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
