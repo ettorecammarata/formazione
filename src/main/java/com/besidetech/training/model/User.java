@@ -86,10 +86,11 @@ public class User implements Serializable {
     @Column(name="notification")
     private String notification ;
 
-    @OneToMany(mappedBy = "user" , fetch=FetchType.LAZY )
+
+    @OneToMany(mappedBy = "user" , fetch=FetchType.LAZY , cascade = CascadeType.ALL)
     Set<UserProject> projects = new TreeSet<>();
 
-    @OneToMany(mappedBy = "user" , fetch=FetchType.LAZY )
+    @OneToMany(mappedBy = "user" , fetch=FetchType.LAZY , cascade = CascadeType.ALL)
     Set<Charge> charges = new TreeSet<>() ;
 
     public Set<UserProject> getProjects() {

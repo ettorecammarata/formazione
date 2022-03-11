@@ -35,9 +35,6 @@ public class Project implements Serializable {
     @Column(name="description")
     private  String description ; //
 
-//    @Column(name="description_id")
-//    private Integer desctiptionId  ; //
-
     @Column(name="status")
     private String status  ; //
 
@@ -142,14 +139,6 @@ public class Project implements Serializable {
         this.description = description;
     }
 
-//    public Integer getDesctiptionId() {
-//        return desctiptionId;
-//    }
-//
-//    public void setDesctiptionId(Integer desctiptionId) {
-//        this.desctiptionId = desctiptionId;
-//    }
-
     public String getStatus() {
         return status;
     }
@@ -221,8 +210,6 @@ public class Project implements Serializable {
     public void setChargableFlag(Integer chargableFlag) {
         this.chargableFlag = chargableFlag;
     }
-
-
 
     @Override
     public String toString() {

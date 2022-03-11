@@ -12,7 +12,8 @@ public interface UserService {
     public void save (User user ) ;
     //User findByNameAndSurname (String Name , String Surname) ;//prova query
     List<User> findByCreatedOrderByNameDesc (Date created  ) ;// da testare ancora
-    //findByAgeLessThan
+
+    void delete(User user);
 
 
 }

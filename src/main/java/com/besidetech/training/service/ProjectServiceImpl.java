@@ -1,7 +1,7 @@
 package com.besidetech.training.service;
 
 import com.besidetech.training.model.Project;
-import com.besidetech.training.repo.ProjectRepository;
+import com.besidetech.training.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,5 +23,9 @@ public class ProjectServiceImpl implements ProjectService {
         projectRepository.save(project);
     }
 
+    @Override
+    public void delete(Project project) {
+        projectRepository.delete(project);
+    }
 
 }

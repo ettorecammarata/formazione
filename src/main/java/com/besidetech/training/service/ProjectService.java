@@ -8,4 +8,6 @@ public interface ProjectService {
 
     Optional<Project> findById (Integer id ) ;
     void save ( Project project) ;
+    void delete(Project project);
+
 }

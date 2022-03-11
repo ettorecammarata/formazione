@@ -1,9 +1,8 @@
 package com.besidetech.training.service;
 
 import com.besidetech.training.model.Project;
-import com.besidetech.training.model.User;
 import com.besidetech.training.model.UserProject;
-import com.besidetech.training.repo.UserProjectRepository;
+import com.besidetech.training.repository.UserProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,11 +31,6 @@ public class UserProjectServiceImpl implements  UserProjectService{
         return userProjectRepository.findByUserId(id);
     }
 
-//    @Override
-//    public List<User> findUserByProject(Project project) {
-//        return userProjectRepository.findUserByProject(project) ;
-//    }
-
     @Override
     public List<UserProject> findUserByProject(Project project) {
         return userProjectRepository.findUserByProject(project);
@@ -46,6 +40,5 @@ public class UserProjectServiceImpl implements  UserProjectService{
     public List<UserProject> findByCreatedBetween(Date start, Date end) {
         return userProjectRepository.findByCreatedBetween (start ,  end );
     }
-
 
 }
