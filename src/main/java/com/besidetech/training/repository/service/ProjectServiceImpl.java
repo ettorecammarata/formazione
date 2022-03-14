@@ -1,6 +1,8 @@
-package com.besidetech.training.service;
+package com.besidetech.training.repository.service;
 
 import com.besidetech.training.model.Project;
+import com.besidetech.training.model.converter.ConverterProject;
+import com.besidetech.training.model.dto.ProjectDto;
 import com.besidetech.training.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,12 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void delete(Project project) {
         projectRepository.delete(project);
+    }
+
+    @Override
+    public ProjectDto getConverted(Project project) {
+        ConverterProject converter = new ConverterProject() ;
+        return converter.convert(project ) ;
     }
 
 }

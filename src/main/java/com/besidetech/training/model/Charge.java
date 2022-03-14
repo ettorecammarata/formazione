@@ -1,6 +1,9 @@
 package com.besidetech.training.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Comparator;
@@ -35,10 +38,12 @@ public class Charge implements Serializable  {
     @Column(name = "hours")
     private Float hours;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
@@ -163,6 +168,7 @@ public class Charge implements Serializable  {
             return false;
         return true;
     }
+
 
 
 }

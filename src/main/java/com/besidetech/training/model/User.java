@@ -1,5 +1,8 @@
 package com.besidetech.training.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -86,10 +89,11 @@ public class User implements Serializable {
     @Column(name="notification")
     private String notification ;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "user" , fetch=FetchType.LAZY , cascade = CascadeType.ALL)
     Set<UserProject> projects = new TreeSet<>();
 
+    @JsonBackReference
     @OneToMany(mappedBy = "user" , fetch=FetchType.LAZY , cascade = CascadeType.ALL)
     Set<Charge> charges = new TreeSet<>() ;
 

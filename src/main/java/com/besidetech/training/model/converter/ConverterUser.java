@@ -1,54 +1,58 @@
 package com.besidetech.training.model.converter;
 
+import com.besidetech.training.model.Project;
 import com.besidetech.training.model.User;
+import com.besidetech.training.model.UserProject;
 import com.besidetech.training.model.dto.UserDto;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ConverterUser {
 // aggiungere if null per i seguenti dati
 // id , created , created_by , last_upd , last_upd_by , username , password ,
 // email , actve , gender
-        public UserDto convert(UserDto userDto, User user){
-        userDto.setUserId(user.getId().toString());
-        String createdToString = convertDateToString(user.getCreated()) ;
-        userDto.setCreated(createdToString);
-        userDto.setCreatedBy(user.getCreated_by().toString()) ;
-        String lastUpdateToString = convertDateToString(user.getLast_update()) ;
-        userDto.setLastUpd (lastUpdateToString) ;
-        userDto.setLastUpdBy(user.getLast_update_by().toString()) ;
-        userDto.setUsername(user.getUsername()) ;
-        userDto.setPassword(user.getPassword()) ;
-        userDto.setEmail (user.getEmail()) ;
-        userDto.setActive(user.getActive().toString());
-        userDto.setName(user.getName()) ;
-        userDto.setSurname(user.getSurname()) ;
-        Character c = user.getGender() ;
-        userDto.setGender (c.toString()) ;
-        userDto.setLevel (user.getLevel()) ;
-        userDto.setPhone (user.getPhone()) ;
-        userDto.setMobile (user.getMobile()) ;
-        userDto.setLoadCost(user.getLoad_cost().toString()) ;
-        userDto.setBillCode(user.getBill_code().toString()) ;
-        userDto.setSeatCharge(user.getSeat_charge().toString()) ;
-        userDto.setDailyHours(user.getDaily_hours().toString()) ;
-        userDto.setProfileId(user.getProfile_id().toString());
-        userDto.setNote(user.getNote());
-        userDto.setConfirmKey(user.getConfirm_key().toString());
-        userDto.setAvatar(user.getAvatar());
-        userDto.setPageSize(user.getPage_size().toString());
-        userDto.setNotification(user.getNotification());
-        return userDto ;
-    }
+        MyUtilities m = new MyUtilities() ;
 
-    String convertDateToString (Date date) {
-        String pattern = "MM/dd/yyyy HH:mm:ss";
-        DateFormat df = new SimpleDateFormat(pattern);
-        Date today = date ;
-        String dateAsString = df.format(today);
-        return dateAsString ;
-    }
+        public ConverterUser () {}
+
+        public static UserDto convert(User user) {
+                UserDto userDto = new UserDto() ;
+                userDto.setId(user.getId());
+                userDto.setCreated(user.getCreated());
+                userDto.setCreated_by(user.getCreated_by()) ;
+                userDto.setLast_update (user.getLast_update()); ;
+                userDto.setLast_update_by(user.getLast_update_by()); ;
+                userDto.setUsername(user.getUsername()) ;
+                userDto.setPassword(user.getPassword()) ;
+                userDto.setEmail (user.getEmail()) ;
+                userDto.setActive(user.getActive());
+                userDto.setName(user.getName()) ;
+                userDto.setSurname(user.getSurname()) ;
+                userDto.setGender (user.getGender()) ;
+                userDto.setLevel (user.getLevel()) ;
+                userDto.setPhone (user.getPhone()) ;
+                userDto.setMobile (user.getMobile()) ;
+                userDto.setLoad_cost(user.getLoad_cost()) ;
+                userDto.setBill_code(user.getBill_code()) ;
+                userDto.setSeat_charge(user.getSeat_charge()) ;
+                userDto.setDaily_hours(user.getDaily_hours());
+                userDto.setProfile_id(user.getProfile_id());
+                userDto.setNote(user.getNote());
+                userDto.setConfirm_key(user.getConfirm_key());
+                userDto.setAvatar(user.getAvatar());
+                userDto.setPage_size(user.getPage_size());
+                userDto.setNotification(user.getNotification());
+                List<Integer> projectsId = new ArrayList<>() ;
+                for (UserProject up : user.getProjects()) {
+                   projectsId.add(up.getProject().getId()) ;
+                }
+                userDto.setProjectsDto(projectsId);
+                return userDto ;
+        }
+
 
 }

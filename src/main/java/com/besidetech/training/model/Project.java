@@ -1,5 +1,7 @@
 package com.besidetech.training.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -35,6 +37,9 @@ public class Project implements Serializable {
     @Column(name="description")
     private  String description ; //
 
+    @Column(name="champion_id")
+    private String championId ;
+
     @Column(name="status")
     private String status  ; //
 
@@ -63,9 +68,9 @@ public class Project implements Serializable {
     private Integer chargableFlag ; // chiedere se questo è un boolean
 
 
+    @JsonBackReference
     @OneToMany(mappedBy = "project" , fetch = FetchType.LAZY)
     Set<UserProject> projects = new TreeSet<>() ;
-
 
     public Set<UserProject> getProjects() {
         return projects;
@@ -199,6 +204,14 @@ public class Project implements Serializable {
         return client;
     }
 
+    public String getChampionId() {
+        return championId;
+    }
+
+    public void setChampionId(String championId) {
+        this.championId = championId;
+    }
+
     public void setClient(String client) {
         this.client = client;
     }
@@ -218,4 +231,5 @@ public class Project implements Serializable {
                 ", name='" + name + '\'' +
                 '}';
     }
+
 }

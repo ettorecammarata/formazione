@@ -1,4 +1,4 @@
-package com.besidetech.training.service;
+package com.besidetech.training.repository.service;
 
 import com.besidetech.training.model.Project;
 import com.besidetech.training.model.UserProject;

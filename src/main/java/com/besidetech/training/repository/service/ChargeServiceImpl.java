@@ -1,7 +1,9 @@
-package com.besidetech.training.service;
+package com.besidetech.training.repository.service;
 
 
 import com.besidetech.training.model.Charge;
+import com.besidetech.training.model.converter.ConverterCharge;
+import com.besidetech.training.model.dto.ChargeDto;
 import com.besidetech.training.repository.ChargeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,12 @@ public class ChargeServiceImpl implements ChargeService {
         for (Charge c : charge) {
             chargeRepository.save(c) ;
         }
+    }
+
+    @Override
+    public ChargeDto getConverted(Charge charge) {
+        ConverterCharge converter  = new ConverterCharge() ;
+        return converter.convert(charge) ;
     }
 
 

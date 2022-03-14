@@ -1,76 +1,103 @@
 package com.besidetech.training.model.dto;
 
-import com.besidetech.training.model.User;
-
-import java.util.Optional;
+import java.util.Date;
+import java.util.List;
 
 public class UserDto {
 
-    String userId = " ";
-    String created= " ";
-    String createdBy= " ";
-    String lastUpd= " ";
-    String lastUpdBy= " ";
-    String username= " ";
-    String password= " ";
-    String email= " ";
-    String active= " ";
-    String name= " ";
-    String surname= " ";
-    String gender= " ";
-    String level= " ";
-    String phone= " ";
-    String mobile= " ";
-    String loadCost= " ";
-    String billCost= " ";
-    String seatCharge= " ";
-    String dailyHours= " ";
-    String profileId= " ";
-    String note= " ";
-    String confirmKey= " ";
-    String avatar= " ";
-    String pageSize= " ";
-    String notification= " ";
+    private Integer id ; // identificiatore dell'utente
 
+    private Date created ; // rappresenta la data di creazione dell utente
 
-    public String getUserId() {
-        return userId;
+    private Integer created_by ;// rappresenta l id dell'user che effettua la creazione
+
+    private Date last_update ; // data ultimo aggiornamento
+
+    private Integer last_update_by ; // rappresenta l id dell user che effettua l'aggiornamento
+
+    private String username ; // è anche considerata una chiave primaria all interno del db
+
+    private String password ; // il campo non puo essere vuoto
+
+    private String email ;
+
+    private Boolean active ; // da verificare la reale funzione
+
+    private String name ; // nome utente
+
+    private String surname ; // congome utente
+
+    private char gender ; // sesso dell utente
+
+    private String level ; // livello gerarchico dell utente
+
+    private String phone ; // numero di telefono fisso dell utente
+
+    private String mobile ; // numero di telefono mobile dell utente
+
+    private Float load_cost ; // CHIEDERE A COSA SERVE
+
+    private Integer bill_code ; // CHIEDERE A COSA SERVE
+
+    private Float seat_charge ;// CHIEDERE A COSA SERVE
+
+    private Float daily_hours ; // ore giornaliere di lavoro dell'utente
+
+    private Integer profile_id ; // CHIEDERE A COSA SERVE
+
+    private String note ; //
+
+    private Character confirm_key ; //
+
+    private String avatar ;
+
+    private Integer page_size ;
+
+    private String notification ;
+
+    private List<Integer> projectsDto ;
+
+    public UserDto() {
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public Integer getId() {
+        return id;
     }
 
-    public String getCreated() {
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
+    public Integer getCreated_by() {
+        return created_by;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
+    public void setCreated_by(Integer created_by) {
+        this.created_by = created_by;
     }
 
-    public String getLastUpd() {
-        return lastUpd;
+    public Date getLast_update() {
+        return last_update;
     }
 
-    public void setLastUpd(String lastUpd) {
-        this.lastUpd = lastUpd;
+    public void setLast_update(Date last_update) {
+        this.last_update = last_update;
     }
 
-    public String getLastUpdBy() {
-        return lastUpdBy;
+    public Integer getLast_update_by() {
+        return last_update_by;
     }
 
-    public void setLastUpdBy(String lastUpdBy) {
-        this.lastUpdBy = lastUpdBy;
+    public void setLast_update_by(Integer last_update_by) {
+        this.last_update_by = last_update_by;
     }
 
     public String getUsername() {
@@ -97,11 +124,11 @@ public class UserDto {
         this.email = email;
     }
 
-    public String getActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(String active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
@@ -121,11 +148,11 @@ public class UserDto {
         this.surname = surname;
     }
 
-    public String getGender() {
+    public char getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(char gender) {
         this.gender = gender;
     }
 
@@ -153,44 +180,44 @@ public class UserDto {
         this.mobile = mobile;
     }
 
-    public String getLoadCost() {
-        return loadCost;
+    public Float getLoad_cost() {
+        return load_cost;
     }
 
-    public void setLoadCost(String loadCost) {
-        this.loadCost = loadCost;
+    public void setLoad_cost(Float load_cost) {
+        this.load_cost = load_cost;
     }
 
-    public String getBillCost() {
-        return billCost;
+    public Integer getBill_code() {
+        return bill_code;
     }
 
-    public void setBillCode(String billCost) {
-        this.billCost = billCost;
+    public void setBill_code(Integer bill_code) {
+        this.bill_code = bill_code;
     }
 
-    public String getSeatCharge() {
-        return seatCharge;
+    public Float getSeat_charge() {
+        return seat_charge;
     }
 
-    public void setSeatCharge(String seatCharge) {
-        this.seatCharge = seatCharge;
+    public void setSeat_charge(Float seat_charge) {
+        this.seat_charge = seat_charge;
     }
 
-    public String getDailyHours() {
-        return dailyHours;
+    public Float getDaily_hours() {
+        return daily_hours;
     }
 
-    public void setDailyHours(String dailyHours) {
-        this.dailyHours = dailyHours;
+    public void setDaily_hours(Float daily_hours) {
+        this.daily_hours = daily_hours;
     }
 
-    public String getProfileId() {
-        return profileId;
+    public Integer getProfile_id() {
+        return profile_id;
     }
 
-    public void setProfileId(String profileId) {
-        this.profileId = profileId;
+    public void setProfile_id(Integer profile_id) {
+        this.profile_id = profile_id;
     }
 
     public String getNote() {
@@ -201,12 +228,12 @@ public class UserDto {
         this.note = note;
     }
 
-    public String getConfirmKey() {
-        return confirmKey;
+    public Character getConfirm_key() {
+        return confirm_key;
     }
 
-    public void setConfirmKey(String confirmKey) {
-        this.confirmKey = confirmKey;
+    public void setConfirm_key(Character confirm_key) {
+        this.confirm_key = confirm_key;
     }
 
     public String getAvatar() {
@@ -217,12 +244,12 @@ public class UserDto {
         this.avatar = avatar;
     }
 
-    public String getPageSize() {
-        return pageSize;
+    public Integer getPage_size() {
+        return page_size;
     }
 
-    public void setPageSize(String pageSize) {
-        this.pageSize = pageSize;
+    public void setPage_size(Integer page_size) {
+        this.page_size = page_size;
     }
 
     public String getNotification() {
@@ -233,34 +260,12 @@ public class UserDto {
         this.notification = notification;
     }
 
+    public List<Integer> getProjectsDto() {
+        return projectsDto;
+    }
 
-    @Override
-    public String toString() {
-        return    userId
-                + " " +created
-                + " " + createdBy
-                + " " + lastUpd
-                + " " + lastUpdBy
-                + " " + username
-                + " " + password
-                + " " + email
-                + " " + active
-                + " " + name
-                + " " + surname
-                + " " + gender
-                + " " + level
-                + " " + phone
-                + " " + mobile
-                + " " + loadCost
-                + " " + billCost
-                + " " + seatCharge
-                + " " + dailyHours
-                + " " + profileId
-                + " " + note
-                + " " + confirmKey
-                + " " + avatar
-                + " " + pageSize
-                + " " + notification ;
+    public void setProjectsDto(List<Integer> projectsDto) {
+        this.projectsDto = projectsDto;
     }
 
 
