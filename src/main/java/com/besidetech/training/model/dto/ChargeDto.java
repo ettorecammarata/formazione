@@ -1,128 +1,89 @@
 package com.besidetech.training.model.dto;
 
-import com.besidetech.training.model.Charge;
-import com.besidetech.training.model.converter.MyUtilities;
-
 import java.util.Date;
 
 public class ChargeDto {
 
-    String id = " " ;
-    String created = " " ;
-    String createdBy = " " ;
-    String lastUpdate = " " ;
-    String lastUpdateBy = " " ;
-    String taskId = " " ;
-    String day = " " ;
-    String hours = " " ;
-    String user = " " ;
-    String project = " " ; // si riferisce all'id del project di riferimento
-    MyUtilities m = new MyUtilities() ;
+    private Integer id;
 
-    public String getId() {
+    private Date created;
+
+    private Integer created_by;
+
+    private Date last_upd;
+
+    private Integer last_upd_by;
+
+    private Integer task_id;
+
+    private Date day;
+
+    private Float hours;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
+    public Integer getCreated_by() {
+        return created_by;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
+    public void setCreated_by(Integer created_by) {
+        this.created_by = created_by;
     }
 
-    public String getLastUpdate() {
-        return lastUpdate;
+    public Date getLast_upd() {
+        return last_upd;
     }
 
-    public void setLastUpdate(String lastUpdate) {
-        this.lastUpdate = lastUpdate;
+    public void setLast_upd(Date last_upd) {
+        this.last_upd = last_upd;
     }
 
-    public String getLastUpdateBy() {
-        return lastUpdateBy;
+    public Integer getLast_upd_by() {
+        return last_upd_by;
     }
 
-    public void setLastUpdateBy(String lastUpdateBy) {
-        this.lastUpdateBy = lastUpdateBy;
+    public void setLast_upd_by(Integer last_upd_by) {
+        this.last_upd_by = last_upd_by;
     }
 
-    public String getTaskId() {
-        return taskId;
+    public Integer getTask_id() {
+        return task_id;
     }
 
-    public void setTaskId(String taskId) {
-        this.taskId = taskId;
+    public void setTask_id(Integer task_id) {
+        this.task_id = task_id;
     }
 
-    public String getDay() {
+    public Date getDay() {
         return day;
     }
 
-    public void setDay(String day) {
+    public void setDay(Date day) {
         this.day = day;
     }
 
-    public String getHours() {
+    public Float getHours() {
         return hours;
     }
 
-    public void setHours(String hours) {
+    public void setHours(Float hours) {
         this.hours = hours;
     }
 
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public String getProject() {
-        return project;
-    }
-
-    public void setProject(String project) {
-        this.project = project;
-    }
-
-    public MyUtilities getM() {
-        return m;
-    }
-
-    public void setM(MyUtilities m) {
-        this.m = m;
-    }
-
-    public ChargeDto () {} ;
-
-    @Override
-    public String toString() {
-        return "ChargeDto{" +
-                "id='" + id + '\'' +
-                ", created='" + created + '\'' +
-                ", createdBy='" + createdBy + '\'' +
-                ", lastUpdate='" + lastUpdate + '\'' +
-                ", lastUpdateBy='" + lastUpdateBy + '\'' +
-                ", taskId='" + taskId + '\'' +
-                ", day='" + day + '\'' +
-                ", hours='" + hours + '\'' +
-                ", user='" + user + '\'' +
-                ", project='" + project + '\'' +
-                ", m=" + m +
-                '}';
+    public ChargeDto() {
     }
 }

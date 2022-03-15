@@ -1,19 +1,23 @@
 package com.besidetech.training.service;
 
+import com.besidetech.training.exception.TimesheetException;
+import com.besidetech.training.exception.UserNotFoundException;
 import com.besidetech.training.model.User;
 import com.besidetech.training.model.dto.UserDto;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-public interface UserService {
+public interface UserService  {
 
-    UserDto findByIdDto (Integer id ) ;
-    Optional<User> findById (Integer id ) ;
+    public Set<User> getAll () throws TimesheetException;
+    public Optional<User> findById (Integer id ) throws UserNotFoundException;
     public void save (User user ) ;
-    //User findByNameAndSurname (String Name , String Surname) ;//prova query
-    List<User> findByCreatedOrderByNameDesc (Date created  ) ;// da testare ancora
+    public void delete(User user);
+    public List<User> findByCreatedOrderByNameDesc (Date created  ) ;// da testare ancora
 
-    void delete(User user);
-    UserDto getConverted (User user ) ;
-    Set<User> getAll () ;
+    public UserDto findByIdDto (Integer id ) ;
+    public UserDto getConverted (User user ) ;
+
+
 }

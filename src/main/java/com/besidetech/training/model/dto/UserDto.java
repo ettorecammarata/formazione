@@ -5,49 +5,49 @@ import java.util.List;
 
 public class UserDto {
 
-    private Integer id ; // identificiatore dell'utente
+    private Integer id ;
 
-    private Date created ; // rappresenta la data di creazione dell utente
+    private Date created ;
 
-    private Integer created_by ;// rappresenta l id dell'user che effettua la creazione
+    private Integer created_by ;
 
-    private Date last_update ; // data ultimo aggiornamento
+    private Date last_update ;
 
-    private Integer last_update_by ; // rappresenta l id dell user che effettua l'aggiornamento
+    private Integer last_update_by ;
 
-    private String username ; // è anche considerata una chiave primaria all interno del db
+    private String username ;
 
-    private String password ; // il campo non puo essere vuoto
+    private String password ;
 
     private String email ;
 
-    private Boolean active ; // da verificare la reale funzione
+    private Boolean active ;
 
-    private String name ; // nome utente
+    private String name ;
 
-    private String surname ; // congome utente
+    private String surname ;
 
-    private char gender ; // sesso dell utente
+    private char gender ;
 
-    private String level ; // livello gerarchico dell utente
+    private String level ;
 
-    private String phone ; // numero di telefono fisso dell utente
+    private String phone ;
 
-    private String mobile ; // numero di telefono mobile dell utente
+    private String mobile ;
 
-    private Float load_cost ; // CHIEDERE A COSA SERVE
+    private Float load_cost ;
 
-    private Integer bill_code ; // CHIEDERE A COSA SERVE
+    private Integer bill_code ;
 
-    private Float seat_charge ;// CHIEDERE A COSA SERVE
+    private Float seat_charge ;
 
-    private Float daily_hours ; // ore giornaliere di lavoro dell'utente
+    private Float daily_hours ;
 
-    private Integer profile_id ; // CHIEDERE A COSA SERVE
+    private Integer profile_id ;
 
-    private String note ; //
+    private String note ;
 
-    private Character confirm_key ; //
+    private Character confirm_key ;
 
     private String avatar ;
 
@@ -57,8 +57,9 @@ public class UserDto {
 
     private List<Integer> projectsDto ;
 
-    public UserDto() {
-    }
+//    private User user;
+
+//    private Project project;
 
     public Integer getId() {
         return id;
@@ -268,5 +269,6 @@ public class UserDto {
         this.projectsDto = projectsDto;
     }
 
-
+    public UserDto() {
+    }
 }

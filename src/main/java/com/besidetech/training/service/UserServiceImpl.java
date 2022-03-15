@@ -1,5 +1,6 @@
 package com.besidetech.training.service;
 
+import com.besidetech.training.exception.UserNotFoundException;
 import com.besidetech.training.model.User;
 import com.besidetech.training.model.converter.ConverterUser;
 import com.besidetech.training.model.dto.UserDto;
@@ -7,8 +8,6 @@ import com.besidetech.training.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-
 import java.util.*;
 //@Qualifier (//nome_del_Bean)
 
@@ -26,7 +25,7 @@ public class UserServiceImpl implements  UserService {
     }
 
     @Override
-    public Optional<User> findById(Integer id) {
+    public Optional<User> findById(Integer id) throws UserNotFoundException{
         return  repository.findById(id)  ;
     }
 
@@ -39,7 +38,6 @@ public class UserServiceImpl implements  UserService {
     public List<User> findByCreatedOrderByNameDesc(Date created) {
         return repository.findByCreatedOrderByNameDesc(created );
     }
-
 
     @Override
     public void delete(User user) {

@@ -1,23 +1,16 @@
 package com.besidetech.training.model.converter;
 
-import com.besidetech.training.model.Project;
 import com.besidetech.training.model.User;
 import com.besidetech.training.model.UserProject;
 import com.besidetech.training.model.dto.UserDto;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ConverterUser {
 // aggiungere if null per i seguenti dati
 // id , created , created_by , last_upd , last_upd_by , username , password ,
 // email , actve , gender
-        MyUtilities m = new MyUtilities() ;
-
-        public ConverterUser () {}
+public ConverterUser () {}
 
         public static UserDto convert(User user) {
                 UserDto userDto = new UserDto() ;
@@ -48,7 +41,7 @@ public class ConverterUser {
                 userDto.setNotification(user.getNotification());
                 List<Integer> projectsId = new ArrayList<>() ;
                 for (UserProject up : user.getProjects()) {
-                   projectsId.add(up.getProject().getId()) ;
+                        projectsId.add(up.getProject().getId()) ;
                 }
                 userDto.setProjectsDto(projectsId);
                 return userDto ;
