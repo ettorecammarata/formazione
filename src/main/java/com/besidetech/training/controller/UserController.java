@@ -2,8 +2,7 @@ package com.besidetech.training.controller;
 
 import com.besidetech.training.model.User;
 import com.besidetech.training.model.dto.UserDto;
-import com.besidetech.training.repository.UserRepository;
-import com.besidetech.training.repository.service.UserService;
+import com.besidetech.training.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

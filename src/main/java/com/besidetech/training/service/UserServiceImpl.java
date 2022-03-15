@@ -1,4 +1,4 @@
-package com.besidetech.training.repository.service;
+package com.besidetech.training.service;
 
 import com.besidetech.training.model.User;
 import com.besidetech.training.model.converter.ConverterUser;
@@ -22,9 +22,6 @@ public class UserServiceImpl implements  UserService {
     @Override
     public UserDto findByIdDto(Integer id) {
         ConverterUser c = new ConverterUser() ;
-
-
-
         return c.convert(repository.findById(id).get()) ;
     }
 
