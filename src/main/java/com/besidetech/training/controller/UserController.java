@@ -43,7 +43,7 @@ public class UserController extends AbstractResponse<UserDto> {
     RestResponse<UserDto> save (@RequestBody UserDto user) {
         try{
             userService.save(user);
-            return createResponse(200 , "Utente salvato con successo" , user ) ;
+            return createResponse(200 , "Utente salvato con successo" , null ) ;
         }catch (TimesheetException e ){
             return createResponse(500 , e.getMessage() , null ) ;
         }
@@ -60,12 +60,12 @@ public class UserController extends AbstractResponse<UserDto> {
     }
 
 
-    @RequestMapping("/update/{user}")
-    RestResponse<UserDto> update (@RequestBody UserDto user) throws TimesheetException {
-        userService.findById(user.getId()) ;
-        userService.delete(user.getId());
+    @RequestMapping("/update/{id}")
+    RestResponse<UserDto> update (@RequestBody UserDto user , @PathVariable("id") Integer id ) throws TimesheetException {
+        UserDto tmp = userService.findById(id) ;
+        user.setId(tmp.getId());
         try {
-            userService.save(user);
+            userService.update(user);
             return createResponse(200 , "utente aggiornato correttamente " , user) ;
         }catch ( TimesheetException f ) {
             return createResponse(500 , "utente non aggiornato " , null ) ;

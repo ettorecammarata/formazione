@@ -17,6 +17,7 @@ public interface UserService  {
     public User findByUsername (String username ) ;
     public UserDto findByIdDto (Integer id ) ;
 
+    public void update(UserDto userDto) throws TimesheetException;
     public User createUser (UserDto userDto) ;
 
 }

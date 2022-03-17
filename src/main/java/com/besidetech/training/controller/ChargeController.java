@@ -62,8 +62,8 @@ public class ChargeController extends AbstractResponse<ChargeDto>{
 
     @RequestMapping("/update/{charge}")
     RestResponse<ChargeDto> update (@RequestBody ChargeDto charge)  throws TimesheetException{
-        chargeService.findById(charge.getId()) ;
-        chargeService.delete(charge.getId());
+        ChargeDto tmp = chargeService.findById(charge.getId()) ;
+        charge.setId(tmp.getId());
         try {
             chargeService.save(charge);
             return createResponse(200 , "charge aggiornato correttamente " , charge) ;

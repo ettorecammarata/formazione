@@ -70,6 +70,12 @@ public class UserServiceImpl implements  UserService {
     }
 
     @Override
+    public void update(UserDto userDto) {
+        User tmp = ConverterUser.convertToUser(userDto) ;
+        userRepository.save(tmp) ;
+    }
+
+    @Override
     public User createUser(UserDto userDto) {
         User u = ConverterUser.convertToUser(userDto)  ;
 

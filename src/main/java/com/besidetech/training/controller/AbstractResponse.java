@@ -7,6 +7,9 @@ import java.util.Set;
 
 public abstract class AbstractResponse<T> {
 
+//    public final String
+
+
     protected RestResponse <T> createResponse (Integer status ,String message , T result ) {
         RestResponse response = new RestResponse() ;
         response.setStatus(status);
