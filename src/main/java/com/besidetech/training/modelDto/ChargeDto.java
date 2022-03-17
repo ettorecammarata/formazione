@@ -1,8 +1,8 @@
-package com.besidetech.training.model.dto;
+package com.besidetech.training.modelDto;
 
 import java.util.Date;
 
-public class ChargeDto {
+public class ChargeDto implements Comparable<ChargeDto>{
 
     private Integer id;
 
@@ -85,5 +85,14 @@ public class ChargeDto {
     }
 
     public ChargeDto() {
+    }
+
+    @Override
+    public int compareTo(ChargeDto o) {
+        if (this.getId()>o.getId())
+            return 1 ;
+        if (this.getId()<o.getId())
+            return -1 ;
+        return 0;
     }
 }

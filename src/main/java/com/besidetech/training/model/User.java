@@ -5,13 +5,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 @Entity
 @Table(name="myt_user")
-public class User implements Serializable {
+public class User implements Serializable , Comparable<User> {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -127,7 +125,7 @@ public class User implements Serializable {
         return created_by;
     }
 
-    public void setCretaed_by(Integer created_by) {
+    public void setCreated_by(Integer created_by) {
         this.created_by = created_by;
     }
 
@@ -307,11 +305,53 @@ public class User implements Serializable {
         this.notification = notification;
     }
 
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//                "id= " + id +
+//                ", username='" + username + '\'' +
+//                '}';
+//    }
+
+
     @Override
     public String toString() {
         return "User{" +
-                "id= " + id +
+                "id=" + id +
+                ", created=" + created +
+                ", created_by=" + created_by +
+                ", last_update=" + last_update +
+                ", last_update_by=" + last_update_by +
                 ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", active=" + active +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", gender=" + gender +
+                ", level='" + level + '\'' +
+                ", phone='" + phone + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", load_cost=" + load_cost +
+                ", bill_code=" + bill_code +
+                ", seat_charge=" + seat_charge +
+                ", daily_hours=" + daily_hours +
+                ", profile_id=" + profile_id +
+                ", note='" + note + '\'' +
+                ", confirm_key=" + confirm_key +
+                ", avatar='" + avatar + '\'' +
+                ", page_size=" + page_size +
+                ", notification='" + notification + '\'' +
                 '}';
+    }
+
+
+    @Override
+    public int compareTo(User o) {
+        if (this.getId()>o.getId())
+            return 1 ;
+        if (this.getId()<o.getId())
+            return -1 ;
+        return 0;
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
 @Service
 @Transactional
 public class UserProjectServiceImpl implements  UserProjectService{
@@ -40,5 +41,7 @@ public class UserProjectServiceImpl implements  UserProjectService{
     public List<UserProject> findByCreatedBetween(Date start, Date end) {
         return userProjectRepository.findByCreatedBetween (start ,  end );
     }
+
+
 
 }

@@ -1,4 +1,4 @@
-package com.besidetech.training.model.converter;
+package com.besidetech.training.converter;
 
 import java.text.DateFormat;
 import java.text.ParseException;

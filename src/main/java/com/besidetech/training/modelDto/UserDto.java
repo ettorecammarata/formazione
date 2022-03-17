@@ -1,9 +1,11 @@
-package com.besidetech.training.model.dto;
+package com.besidetech.training.modelDto;
+
+import com.besidetech.training.model.User;
 
 import java.util.Date;
 import java.util.List;
 
-public class UserDto {
+public class UserDto implements Comparable<UserDto>{
 
     private Integer id ;
 
@@ -55,7 +57,7 @@ public class UserDto {
 
     private String notification ;
 
-    private List<Integer> projectsDto ;
+//    private List<Integer> projectsDto ;
 
 //    private User user;
 
@@ -261,14 +263,54 @@ public class UserDto {
         this.notification = notification;
     }
 
-    public List<Integer> getProjectsDto() {
-        return projectsDto;
-    }
-
-    public void setProjectsDto(List<Integer> projectsDto) {
-        this.projectsDto = projectsDto;
-    }
+//    public List<Integer> getProjectsDto() {
+//        return projectsDto;
+//    }
+//
+//    public void setProjectsDto(List<Integer> projectsDto) {
+//        this.projectsDto = projectsDto;
+//    }
 
     public UserDto() {
     }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "id=" + id +
+                ", created=" + created +
+                ", created_by=" + created_by +
+                ", last_update=" + last_update +
+                ", last_update_by=" + last_update_by +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", active=" + active +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", gender=" + gender +
+                ", level='" + level + '\'' +
+                ", phone='" + phone + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", load_cost=" + load_cost +
+                ", bill_code=" + bill_code +
+                ", seat_charge=" + seat_charge +
+                ", daily_hours=" + daily_hours +
+                ", profile_id=" + profile_id +
+                ", note='" + note + '\'' +
+                ", confirm_key=" + confirm_key +
+                ", avatar='" + avatar + '\'' +
+                ", page_size=" + page_size +
+                ", notification='" + notification + '\'' +
+                '}';
+    }
+
+        @Override
+        public int compareTo(UserDto o) {
+            if (this.getId()>o.getId())
+                return 1 ;
+            if (this.getId()<o.getId())
+                return -1 ;
+            return 0;
+        }
 }

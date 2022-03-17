@@ -1,56 +1,81 @@
 package com.besidetech.training.service;
 
+import com.besidetech.training.exception.TimesheetException;
 import com.besidetech.training.exception.UserNotFoundException;
 import com.besidetech.training.model.User;
-import com.besidetech.training.model.converter.ConverterUser;
-import com.besidetech.training.model.dto.UserDto;
+import com.besidetech.training.converter.ConverterUser;
+import com.besidetech.training.modelDto.UserDto;
 import com.besidetech.training.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
-//@Qualifier (//nome_del_Bean)
 
 @Service
 @Transactional
 public class UserServiceImpl implements  UserService {
 
     @Autowired
-    private UserRepository repository ;
+    private UserRepository userRepository;
+
+    @Override
+    public Set<UserDto> getAll() throws UserNotFoundException {
+        Set<User> collectionOfUsers = userRepository.findAll() ;
+        return ConverterUser.convertToSetOfUserDto(collectionOfUsers);
+    }
+
+    @Override
+    public UserDto findById(Integer id) throws UserNotFoundException {
+        Optional<User> tmp = userRepository.findById(id) ;
+        if(!tmp.isPresent())
+            return null ;
+        return  ConverterUser.convertToUserDto(tmp.get())  ;
+    }
+
+    @Override
+    public List<UserDto> findByCreatedOrderByNameDesc(Date created) {
+        List<User> listaUser = userRepository.findByCreatedOrderByNameDesc(created );
+        List<UserDto> listaUserDto = new ArrayList<>() ;
+        for (User u : listaUser) {
+            listaUserDto.add(ConverterUser.convertToUserDto(u)) ;
+        }
+        return listaUserDto ;
+    }
+
+    @Override
+    public void save(UserDto user) throws TimesheetException {
+        if (userRepository.findByUsername(user.getUsername())==null)
+            userRepository.save(ConverterUser.convertToUser(user) ) ;
+        else
+            throw new TimesheetException("Utente già esistente ") ;
+    }
+
+    @Override
+    public void delete(Integer id) throws TimesheetException{
+        Optional<User> u = userRepository.findById(id) ;
+        if (u.isPresent())
+            userRepository.delete(u.get());
+        else
+            throw new TimesheetException("Utente non trovato ") ;
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username) ;
+    }
 
     @Override
     public UserDto findByIdDto(Integer id) {
-        ConverterUser c = new ConverterUser() ;
-        return c.convert(repository.findById(id).get()) ;
+        return ConverterUser.convertToUserDto(userRepository.findById(id).get()) ;
     }
 
     @Override
-    public Optional<User> findById(Integer id) throws UserNotFoundException{
-        return  repository.findById(id)  ;
+    public User createUser(UserDto userDto) {
+        User u = ConverterUser.convertToUser(userDto)  ;
+
+
+        return null;
     }
 
-    @Override
-    public void save(User user) {
-        repository.save(user) ;
-    }
 
-    @Override
-    public List<User> findByCreatedOrderByNameDesc(Date created) {
-        return repository.findByCreatedOrderByNameDesc(created );
-    }
-
-    @Override
-    public void delete(User user) {
-        repository.delete(user);
-    }
-
-    @Override
-    public UserDto getConverted(User user) {
-        return ConverterUser.convert(user) ;
-    }
-
-    @Override
-    public Set<User> getAll () {
-        return repository.findAll() ;
-    }
 }

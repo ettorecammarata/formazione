@@ -1,18 +1,23 @@
 package com.besidetech.training.service;
 
-import com.besidetech.training.model.Charge;
-import com.besidetech.training.model.User;
-import com.besidetech.training.model.dto.ChargeDto;
+import com.besidetech.training.exception.ChargeNotFoundException;
+import com.besidetech.training.exception.TimesheetException;
+import com.besidetech.training.exception.UserNotFoundException;
+import com.besidetech.training.modelDto.ChargeDto;
+import com.besidetech.training.modelDto.UserDto;
+
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 public interface ChargeService {
 
-    public List<Charge> getAll () ;
-    public Optional<Charge> findById (Integer id ) ;
-    public void save ( Charge charge) ;
-    public void save ( List<Charge> charge) ;
-    public void delete(Charge charge);
-    public ChargeDto getConverted (Charge charge ) ;
+    public Set<ChargeDto> getAll () throws ChargeNotFoundException;
+    public ChargeDto findById (Integer id ) throws ChargeNotFoundException ;
+    public void save ( ChargeDto charge) throws TimesheetException;
+    public void save ( List<ChargeDto> charge) ;
+    public void delete(Integer id) throws TimesheetException;
+
+
+
 
 }

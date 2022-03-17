@@ -1,86 +1,45 @@
-package com.besidetech.training.model;
+package com.besidetech.training.modelDto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
-import java.util.TreeSet;
 
-@Entity
-@Table(name="myt_project")
-public class Project implements Serializable {
+public class ProjectDto  implements Comparable<ProjectDto> {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id ; // identificiatore del progetto
 
-    @Column(name="created")
     private Date created  ; //
 
-    @Column(name="created_by")
     private  Integer createdBy ; //
 
-    @Column(name="last_upd")
     private Date lastUpdate ; //
 
-    @Column(name="last_upd_by")
     private Integer lastUpdateBy ; //
 
-    @Column(name="name")
     private  String name ; //
 
-    @Column(name="prefix")
     private String prefix ; //
 
-    @Column(name="description")
     private  String description ; //
 
-    @Column(name="champion_id")
     private String championId ;
 
-    @Column(name="status")
     private String status  ; //
 
-    @Column(name="progress")
     private  Integer progress ; //
 
-    @Column(name="par_project_id")
     private Integer parProjectId  ; //
 
-    @Column(name="start_date")
     private  Date startDate; //
 
-    @Column(name="end_date")
     private Date endDate  ; //
 
-    @Column(name="eff_start_date")
     private  Date effStartDate; //
 
-    @Column(name="eff_end_date")
     private Date effEndDate ; //
 
-    @Column(name="client")
     private String client ; //
 
-    @Column(name="chargeable_flg")
     private Integer chargableFlag ; // chiedere se questo è un boolean
 
-
-    @JsonBackReference
-    @OneToMany(mappedBy = "project" , fetch = FetchType.LAZY)
-    Set<UserProject> projects = new TreeSet<>() ;
-
-    public Project () {}
-
-    public Set<UserProject> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(Set<UserProject> projects) {
-        this.projects = projects;
-    }
 
     public Integer getId() {
         return id;
@@ -146,6 +105,14 @@ public class Project implements Serializable {
         this.description = description;
     }
 
+    public String getChampionId() {
+        return championId;
+    }
+
+    public void setChampionId(String championId) {
+        this.championId = championId;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -206,14 +173,6 @@ public class Project implements Serializable {
         return client;
     }
 
-    public String getChampionId() {
-        return championId;
-    }
-
-    public void setChampionId(String championId) {
-        this.championId = championId;
-    }
-
     public void setClient(String client) {
         this.client = client;
     }
@@ -226,12 +185,16 @@ public class Project implements Serializable {
         this.chargableFlag = chargableFlag;
     }
 
-    @Override
-    public String toString() {
-        return "Project{" +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+    public ProjectDto() {
     }
 
+
+    @Override
+    public int compareTo(ProjectDto o) {
+        if (this.getId()>o.getId())
+            return 1 ;
+        if (this.getId()<o.getId())
+            return -1 ;
+        return 0;
+    }
 }

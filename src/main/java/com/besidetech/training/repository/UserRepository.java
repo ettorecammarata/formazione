@@ -11,6 +11,7 @@ import java.util.Set;
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {
 
+    User findByUsername (String username );
     Set<User> findAll () ;
     List<User> findByCreatedOrderByNameDesc(Date created) ;
     //recuperare tutti gli utenti dato un determinato progetto

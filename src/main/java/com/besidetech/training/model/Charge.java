@@ -1,18 +1,14 @@
 package com.besidetech.training.model;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Table(name="myt_charge")
-public class Charge implements Serializable  {
+public class Charge implements Serializable ,Comparable<Charge> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -170,5 +166,12 @@ public class Charge implements Serializable  {
     }
 
 
-
+    @Override
+    public int compareTo(Charge o) {
+        if (this.getId()>o.getId())
+            return 1 ;
+        if (this.getId()<o.getId())
+            return -1 ;
+        return 0;
+    }
 }

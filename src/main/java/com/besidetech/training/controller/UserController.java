@@ -1,11 +1,10 @@
 package com.besidetech.training.controller;
 
 import com.besidetech.training.exception.TimesheetException;
-import com.besidetech.training.exception.UserNotFoundException;
-import com.besidetech.training.model.User;
-import com.besidetech.training.model.dto.UserDto;
+import com.besidetech.training.modelDto.UserDto;
 import com.besidetech.training.restmodel.RestCollectionResponse;
 import com.besidetech.training.restmodel.RestResponse;
+import com.besidetech.training.restmodel.restresources.RestResources;
 import com.besidetech.training.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,54 +12,77 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/rest/user")
-public class UserController extends AbstractResponse<User> {
+public class UserController extends AbstractResponse<UserDto> {
 
     @Autowired
     UserService  userService ;
 
-    @RequestMapping("/getAll")
-    RestCollectionResponse<User> getAllUsers() {
-        Set<User> myResponse = new TreeSet<>( );
-        try {
-            myResponse = userService.getAll() ;
-            return createCollectionResponse(200 , "Utenti recuperati correttamente" , myResponse) ;
-        }catch ( TimesheetException t ) {
+    @GetMapping("/getAll")
+    RestCollectionResponse<UserDto> getAllUsers()  {
+        Set<UserDto> myResponse = userService.getAll() ;
+        if(myResponse==null)
+            return createCollectionResponse(502 , "Utenti non trovati " , null) ;
+        if (myResponse.isEmpty()  )
             return createCollectionResponse(500 , "Utenti non recuperati " , null) ;
+        else
+            return createCollectionResponse(200 , "Utenti recuperati correttamente" , myResponse) ;
+
+    }
+
+    @GetMapping(RestResources.FIND+"/{id}")
+    RestResponse<UserDto> findId (@PathVariable("id") Integer id ){
+        UserDto myUserDto = userService.findById(id) ;
+        if (myUserDto==null)
+            return createResponse(500 , "Utente {"+ id + "} non trovato " , null ) ;
+        else
+              return createResponse(200 , "Utente recuperato correttamente" ,myUserDto   ) ;
+
+    }
+
+    @PostMapping("/save")
+    RestResponse<UserDto> save (@RequestBody UserDto user) {
+        try{
+            userService.save(user);
+            return createResponse(200 , "Utente salvato con successo" , user ) ;
+        }catch (TimesheetException e ){
+            return createResponse(500 , e.getMessage() , null ) ;
         }
     }
 
-    @RequestMapping("/find/{id}")
-    RestResponse<User> findId (@PathVariable("id") Integer id ){
-        Optional<User>  myUser = null ;
-        myUser = userService.findById(id) ;
-        if (myUser.isPresent())
-            return createResponse(200 , "Utente recuperato correttamente" , myUser.get() ) ;
-        else
-            return createResponse(500 , "Utente {"+ id + "} non trovato " , null ) ;
+    @DeleteMapping("/delete/{id}")
+    RestResponse<UserDto> delete(@PathVariable("id") Integer id){
+        try {
+            userService.delete(id);
+            return createResponse(200 , "Utente eliminato " , null ) ;
+        }catch (TimesheetException e ) {
+            return createResponse(500 , e.getMessage() , null ) ;
+        }
     }
 
-    @RequestMapping("/save/{user}")
-    void save (@PathVariable("user") User user) {
-        userService.save(user);
+
+    @RequestMapping("/update/{user}")
+    RestResponse<UserDto> update (@RequestBody UserDto user) throws TimesheetException {
+        userService.findById(user.getId()) ;
+        userService.delete(user.getId());
+        try {
+            userService.save(user);
+            return createResponse(200 , "utente aggiornato correttamente " , user) ;
+        }catch ( TimesheetException f ) {
+            return createResponse(500 , "utente non aggiornato " , null ) ;
+        }
     }
 
-    @RequestMapping("/findByCreatedOrderByNameDesc/{created}")
-    List<User> findByCreatedOrderByNameDesc (@PathVariable("created") Date created  ){
-        return userService.findByCreatedOrderByNameDesc(created) ;
-    }
-    @RequestMapping("/delete/{user}")
-    void delete(@PathVariable("user") User user){
-        userService.delete(user);
-    }
+//    @GetMapping("/findByCreatedOrderByNameDesc/{created}")
+//    List<User> findByCreatedOrderByNameDesc (@PathVariable("created") Date created  ){
+//        List<UserDto> response = userService.findByCreatedOrderByNameDesc(created) ;
+//        List<User> myResponse = new ArrayList<>() ;
+//        for (UserDto r : response ) {
+//            User tmp = new User() ;
+//            tmp.setId(r.getId());
+//            myResponse.add(tmp) ;
+//        }
+//        return myResponse ;
+//    }
 
-    @RequestMapping("/getConverted/{user}")
-    UserDto getConverted (@PathVariable("user") User user ) {
-        return  userService.getConverted(user) ;
-    }
-
-    @RequestMapping("/finddto/{id}")
-    UserDto findIdDto (@PathVariable("id") Integer id ) {
-        return userService.findByIdDto(id) ;
-    }
 
 }

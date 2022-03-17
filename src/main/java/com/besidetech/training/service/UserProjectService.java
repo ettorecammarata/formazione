@@ -1,7 +1,6 @@
 package com.besidetech.training.service;
 
 import com.besidetech.training.model.Project;
-import com.besidetech.training.model.User;
 import com.besidetech.training.model.UserProject;
 
 import java.util.Date;
@@ -15,5 +14,6 @@ public interface UserProjectService {
     UserProject findByUserId (Integer id ) ;
     List<UserProject> findUserByProject (Project project) ;
     List<UserProject>findByCreatedBetween (Date start , Date end ) ;
+
 
 }
