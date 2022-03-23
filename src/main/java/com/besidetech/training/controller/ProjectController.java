@@ -8,6 +8,7 @@ import com.besidetech.training.restmodel.RestResponse;
 import com.besidetech.training.restmodel.restresources.RestResources;
 import com.besidetech.training.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,38 +17,35 @@ import java.util.TreeSet;
 
 @RestController
 @RequestMapping("/rest/project")
-public class ProjectController extends AbstractResponse<Project>{
+public class ProjectController extends AbstractResponse<ProjectDto>{
 
     @Autowired
     ProjectService projectService ;
 
-    @RequestMapping (RestResources.FIND+ "/{id}")
-    RestResponse<Project> findId(@PathVariable("id") Integer id ) {
+    @GetMapping (RestResources.FIND+ "/{id}")
+    RestResponse<ProjectDto> findId(@PathVariable("id") Integer id ) {
         ProjectDto myProjectDto = projectService.findById(id) ;
-        Project project = new Project() ;
-        project.setId(myProjectDto.getId());
-        if (!myProjectDto.equals(null))
-            return createResponse(200 , "Pogetto recuperato correttamente" , project ) ;
-        else
+
+        if (myProjectDto==null)
             return createResponse(500 , "Pogetto {"+ id + "} non trovato " , null ) ;
+
+        else
+            return createResponse(200 , "Pogetto recuperato correttamente" , myProjectDto ) ;
+
     }
 
 
-    @RequestMapping("/getAll")
-    RestCollectionResponse<Project> getAllProject() {
-        try {
-            Set<ProjectDto> myResponseDto = projectService.findAll();
-            Set<Project> myResponse = new TreeSet<>();
-            for (ProjectDto p : myResponseDto) {
-                Project tmp = new Project();
-                tmp.getId();
-                myResponse.add(tmp);
-            }
-            return createCollectionResponse(200, "Pogetti recuperati correttamente", myResponse);
-        } catch ( TimesheetException t ) {
-            return createCollectionResponse(500 , "Pogetti non recuperati " , null) ;
+    @GetMapping("/getAll")
+    RestCollectionResponse<ProjectDto> getAllProject() {
+            Set<ProjectDto> myResponseDto = projectService.findAll() ;
+            if (myResponseDto==null)
+                return createCollectionResponse(500 , "Pogetti non recuperati " , null) ;
+            else
+                return createCollectionResponse(200, "Pogetti recuperati correttamente", myResponseDto);
+
+
         }
 
-    }
-
 }
+
+

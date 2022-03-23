@@ -7,17 +7,19 @@ import com.besidetech.training.restmodel.RestResponse;
 import com.besidetech.training.restmodel.restresources.RestResources;
 import com.besidetech.training.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 import java.util.*;
 
 @RestController
-@RequestMapping("/rest/user")
+@RequestMapping(RestResources.REST_USER)
 public class UserController extends AbstractResponse<UserDto> {
 
     @Autowired
     UserService  userService ;
 
-    @GetMapping("/getAll")
+    @GetMapping(RestResources.GET_ALL)
     RestCollectionResponse<UserDto> getAllUsers()  {
         Set<UserDto> myResponse = userService.getAll() ;
         if(myResponse==null)
@@ -29,18 +31,23 @@ public class UserController extends AbstractResponse<UserDto> {
 
     }
 
-    @GetMapping(RestResources.FIND+"/{id}")
+    @GetMapping(RestResources.FIND+RestResources.ID)
     RestResponse<UserDto> findId (@PathVariable("id") Integer id ){
         UserDto myUserDto = userService.findById(id) ;
         if (myUserDto==null)
-            return createResponse(500 , "Utente {"+ id + "} non trovato " , null ) ;
+            return createResponse(500 , id + USER_NOT_FOUND , null ) ;
         else
               return createResponse(200 , "Utente recuperato correttamente" ,myUserDto   ) ;
 
     }
 
-    @PostMapping("/save")
-    RestResponse<UserDto> save (@RequestBody UserDto user) {
+    @PostMapping(RestResources.SAVE)
+    RestResponse<UserDto> save (@Valid @RequestBody UserDto user ,BindingResult bindingResult ) {
+        if (bindingResult.hasErrors()){
+            //creare lista BindingResult
+            System.err.println("binding result : " +  bindingResult.getFieldError().getDefaultMessage());
+            return createResponse(500 , "errore sul campo "+bindingResult.getFieldError() , null ) ;
+        }
         try{
             userService.save(user);
             return createResponse(200 , "Utente salvato con successo" , null ) ;
@@ -49,19 +56,8 @@ public class UserController extends AbstractResponse<UserDto> {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
-    RestResponse<UserDto> delete(@PathVariable("id") Integer id){
-        try {
-            userService.delete(id);
-            return createResponse(200 , "Utente eliminato " , null ) ;
-        }catch (TimesheetException e ) {
-            return createResponse(500 , e.getMessage() , null ) ;
-        }
-    }
-
-
-    @RequestMapping("/update/{id}")
-    RestResponse<UserDto> update (@RequestBody UserDto user , @PathVariable("id") Integer id ) throws TimesheetException {
+    @RequestMapping(RestResources.UPDATE+RestResources.ID)
+    RestResponse<UserDto> update ( @RequestBody UserDto user ,@PathVariable("id") Integer id) throws TimesheetException {
         UserDto tmp = userService.findById(id) ;
         user.setId(tmp.getId());
         try {
@@ -72,17 +68,14 @@ public class UserController extends AbstractResponse<UserDto> {
         }
     }
 
-//    @GetMapping("/findByCreatedOrderByNameDesc/{created}")
-//    List<User> findByCreatedOrderByNameDesc (@PathVariable("created") Date created  ){
-//        List<UserDto> response = userService.findByCreatedOrderByNameDesc(created) ;
-//        List<User> myResponse = new ArrayList<>() ;
-//        for (UserDto r : response ) {
-//            User tmp = new User() ;
-//            tmp.setId(r.getId());
-//            myResponse.add(tmp) ;
-//        }
-//        return myResponse ;
-//    }
-
+    @DeleteMapping(RestResources.DELETE+RestResources.ID)
+    RestResponse<UserDto> delete(@PathVariable("id") Integer id){
+        try {
+            userService.delete(id);
+            return createResponse(200 , "Utente eliminato " , null ) ;
+        }catch (TimesheetException e ) {
+            return createResponse(500 , e.getMessage() , null ) ;
+        }
+    }
 
 }

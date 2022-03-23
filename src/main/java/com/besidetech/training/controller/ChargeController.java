@@ -1,36 +1,29 @@
 package com.besidetech.training.controller;
 
 import com.besidetech.training.exception.TimesheetException;
-import com.besidetech.training.model.Charge;
 import com.besidetech.training.modelDto.ChargeDto;
-import com.besidetech.training.modelDto.UserDto;
+import com.besidetech.training.modelDto.ChargeMap;
 import com.besidetech.training.restmodel.RestCollectionResponse;
 import com.besidetech.training.restmodel.RestResponse;
+import com.besidetech.training.restmodel.restresources.RestResources;
 import com.besidetech.training.service.ChargeService;
+import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/rest/charge")
+@RequestMapping(RestResources.REST_CHARGE)
 public class ChargeController extends AbstractResponse<ChargeDto>{
 
     @Autowired
     ChargeService chargeService ;
 
-    @GetMapping("/getAll")
-    RestCollectionResponse<ChargeDto> getAllCharge () {
-        Set<ChargeDto> myResponse = chargeService.getAll() ;
-        if(myResponse==null)
-            return createCollectionResponse(502 , "Charge non trovati " , null) ;
-        if (myResponse.isEmpty()  )
-            return createCollectionResponse(500 , "Charge non recuperati " , null) ;
-        else
-            return createCollectionResponse(200 , "Charge recuperati correttamente" , myResponse) ;
-    }
-
-    @GetMapping ("/find/{id}")
+    @GetMapping (RestResources.FIND+RestResources.ID)
     RestResponse<ChargeDto> findId (@PathVariable("id") Integer id ){
         ChargeDto myChargeDto = chargeService.findById(id) ;
         if (myChargeDto==null)
@@ -40,27 +33,21 @@ public class ChargeController extends AbstractResponse<ChargeDto>{
 
     }
 
-    @RequestMapping ("/save")
-    RestResponse<ChargeDto> save (@RequestBody ChargeDto charge) {
+    @PostMapping (RestResources.SAVE)
+    RestResponse<ChargeDto> save ( @Valid @RequestBody ChargeDto charge ,BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            System.err.println("binding result : " +  bindingResult.getFieldError().getDefaultMessage());
+            return createResponse(500 , "errore sul campo "+bindingResult.getFieldError() , null ) ;
+        }
         try{
             chargeService.save(charge);
-            return createResponse(200 , "Charge salvato con successo" , charge ) ;
+            return createResponse(200 , "Charge salvato con successo" , null ) ;
         }catch (TimesheetException e ){
             return createResponse(500 , e.getMessage() , null ) ;
         }
     }
 
-    @DeleteMapping("/delete/{id}")
-    RestResponse<ChargeDto> delete(@PathVariable("id") Integer id){
-        try {
-            chargeService.delete(id);
-            return createResponse(200 , "Charge eliminato " , null ) ;
-        }catch (TimesheetException e ) {
-            return createResponse(500 , e.getMessage() , null ) ;
-        }
-    }
-
-    @RequestMapping("/update/{charge}")
+    @RequestMapping(RestResources.UPDATE+RestResources.ID)
     RestResponse<ChargeDto> update (@RequestBody ChargeDto charge)  throws TimesheetException{
         ChargeDto tmp = chargeService.findById(charge.getId()) ;
         charge.setId(tmp.getId());
@@ -72,9 +59,26 @@ public class ChargeController extends AbstractResponse<ChargeDto>{
         }
     }
 
+    @DeleteMapping(RestResources.DELETE)
+    RestResponse<ChargeDto> delete (@RequestBody ChargeDto charge ) {
+        try{
+            chargeService.delete(charge);
+            return createResponse(200 , "Charge cancellato con successo" , null ) ;
+        }catch (TimesheetException e ){
+            return createResponse(500 , e.getMessage() , null ) ;
+        }
+    }
 
 
-//    public void save ( List<Charge> charge) ;
-//    public void delete(Charge charge) throws ChargeNotFoundException;
-//
+    @PostMapping(RestResources.SAVE_ALL)
+    public RestCollectionResponse<ChargeDto> saveAll (@RequestBody Map<Integer , List<ChargeDto>> charges ) {
+        try {
+            chargeService.saveAll(charges);
+            return createCollectionResponse(200 , "inserito charge" , null);
+        }catch (Exception e) {
+            return createCollectionResponse(500 , e.getMessage() , null );
+        }
+    }
+
+
 }

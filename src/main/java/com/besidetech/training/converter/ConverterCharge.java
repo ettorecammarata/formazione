@@ -19,8 +19,8 @@ public class ConverterCharge {
         myChargeDto.setCreated_by(charge.getCreated_by());
         myChargeDto.setLast_upd(charge.getLast_upd());
         myChargeDto.setLast_upd_by(charge.getLast_upd_by());
-        // user
-        // project
+        myChargeDto.setIdProject(charge.getProject().getId());
+        myChargeDto.setIdUser(charge.getUser().getId());
         myChargeDto.setTask_id(charge.getTask_id());
         myChargeDto.setDay(charge.getDay()) ;
         myChargeDto.setHours(charge.getHours());
@@ -30,13 +30,15 @@ public class ConverterCharge {
 
     public static Charge convertToCharge(ChargeDto chargeDto) {
         Charge myChargeNormale = new Charge() ;
-        myChargeNormale.setId(chargeDto.getId());
+        if (chargeDto.getId()!= null )
+            myChargeNormale.setId(chargeDto.getId());
+
         myChargeNormale.setCreated(chargeDto.getCreated());
         myChargeNormale.setCreated_by(chargeDto.getCreated_by());
         myChargeNormale.setLast_upd(chargeDto.getLast_upd());
         myChargeNormale.setLast_upd_by(chargeDto.getLast_upd_by());
-        // user
-        // project
+//        myChargeNormale.setIdProject(charge.getProject().getId());
+//        myChargeNormale.setIdUser(charge.getUser().getId());
         myChargeNormale.setTask_id(chargeDto.getTask_id());
         myChargeNormale.setDay(chargeDto.getDay()) ;
         myChargeNormale.setHours(chargeDto.getHours());

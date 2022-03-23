@@ -8,7 +8,7 @@ import java.util.Set;
 
 public interface ProjectService {
     public ProjectDto findById (Integer id ) throws ProjectNotFoundException;
-    public Set<ProjectDto> findAll() throws TimesheetException;
+    public Set<ProjectDto> findAll() throws ProjectNotFoundException;
     //Optional<Project> findById (Integer id ) ;
     public void save ( Project project) ;
     public void delete(Project project);

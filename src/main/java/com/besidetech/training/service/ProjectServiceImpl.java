@@ -1,5 +1,6 @@
 package com.besidetech.training.service;
 
+import com.besidetech.training.exception.ProjectNotFoundException;
 import com.besidetech.training.exception.TimesheetException;
 import com.besidetech.training.model.Project;
 import com.besidetech.training.converter.ConverterProject;
@@ -23,8 +24,8 @@ public class ProjectServiceImpl implements ProjectService {
 //    }
 
     public ProjectDto findById(Integer id) {
-        ProjectDto p = ConverterProject.convertToProject(projectRepository.findById(id).get());
-        return p;
+//        ProjectDto p = ConverterProject.convertToProject(projectRepository.findById(id).get());
+        return null;
    }
     @Override
     public void save(Project project) {
@@ -38,11 +39,11 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     @Override
-    public Set<ProjectDto> findAll() throws TimesheetException {
+    public Set<ProjectDto> findAll() throws ProjectNotFoundException {
         Set<Project> risultato=projectRepository.findAll();
         Set<ProjectDto> risultatoDto= new TreeSet<>();
         for (Project p :risultato){
-            risultatoDto.add(ConverterProject.convertToProject(p));
+//            risultatoDto.add(ConverterProject.convertToProject(p));
         }
         return risultatoDto;
     }
@@ -50,7 +51,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectDto getConverted(Project project) {
-        return ConverterProject.convertToProject(project ) ;
+        return null ;
+//        return ConverterProject.convertToProject(project ) ;
     }
 
 }

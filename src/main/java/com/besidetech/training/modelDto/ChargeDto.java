@@ -1,13 +1,18 @@
 package com.besidetech.training.modelDto;
 
+import com.besidetech.training.model.User;
+
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class ChargeDto implements Comparable<ChargeDto>{
 
     private Integer id;
 
+    @NotNull(message = "{created non può essere null }")
     private Date created;
 
+    @NotNull(message = "{created_by non può essere null }")
     private Integer created_by;
 
     private Date last_upd;
@@ -19,6 +24,26 @@ public class ChargeDto implements Comparable<ChargeDto>{
     private Date day;
 
     private Float hours;
+
+    private Integer idProject ;
+
+    private Integer idUser ;
+
+    public Integer getIdProject() {
+        return idProject;
+    }
+
+    public void setIdProject(Integer idProject) {
+        this.idProject = idProject;
+    }
+
+    public Integer getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
+    }
 
     public Integer getId() {
         return id;

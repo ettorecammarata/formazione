@@ -188,6 +188,29 @@ public class ProjectDto  implements Comparable<ProjectDto> {
     public ProjectDto() {
     }
 
+    @Override
+    public String toString() {
+        return "ProjectDto{" +
+                "id=" + id +
+                ", created=" + created +
+                ", createdBy=" + createdBy +
+                ", lastUpdate=" + lastUpdate +
+                ", lastUpdateBy=" + lastUpdateBy +
+                ", name='" + name + '\'' +
+                ", prefix='" + prefix + '\'' +
+                ", description='" + description + '\'' +
+                ", championId='" + championId + '\'' +
+                ", status='" + status + '\'' +
+                ", progress=" + progress +
+                ", parProjectId=" + parProjectId +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", effStartDate=" + effStartDate +
+                ", effEndDate=" + effEndDate +
+                ", client='" + client + '\'' +
+                ", chargableFlag=" + chargableFlag +
+                '}';
+    }
 
     @Override
     public int compareTo(ProjectDto o) {

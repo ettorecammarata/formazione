@@ -1,61 +1,89 @@
 package com.besidetech.training.modelDto;
 
-import com.besidetech.training.model.User;
-
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
-import java.util.List;
 
 public class UserDto implements Comparable<UserDto>{
 
+//    @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 1, max = 10)
+
     private Integer id ;
 
+    @NotNull(message = "{created non può essere null }")
     private Date created ;
 
+//    @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 1, max = 10)
+    @NotNull(message = "{created_by non può essere null }")
     private Integer created_by ;
 
+    @NotNull(message = "{last_update non può essere null }")
     private Date last_update ;
 
+    @NotNull(message = "{last_update_by non può essere null }")
     private Integer last_update_by ;
 
+    @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 1, max = 255)
+    @NotNull(message = "{username non può essere null }")
     private String username ;
 
+    @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 1, max = 64)
+    @NotNull(message = "{password non può essere null }")
     private String password ;
 
+    @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 1, max = 255)
+    @NotNull(message = "{email non può essere null }")
     private String email ;
 
+//    @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 1, max = 1)
+    @NotNull(message = "{active non può essere null }")
     private Boolean active ;
 
+    @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 1, max = 63)
     private String name ;
 
+    @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 1, max = 63)
     private String surname ;
 
+//    @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 1, max = 1)
+    @NotNull(message = "{gender non può essere null }")
     private char gender ;
 
+    @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 0, max = 63)
     private String level ;
 
+    @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 0, max = 63)
     private String phone ;
 
+    @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 0, max = 63)
     private String mobile ;
 
+//    @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 0, max = 8)
     private Float load_cost ;
 
+//    @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 0, max = 5)
     private Integer bill_code ;
 
+//    @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 0, max = 8)
     private Float seat_charge ;
 
+//    @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 0, max = 4)
     private Float daily_hours ;
 
+//    @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 0, max = 10)
     private Integer profile_id ;
 
     private String note ;
 
-    private Character confirm_key ;
+    @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 0, max = 40)
+    private String confirm_key ;
 
     private String avatar ;
 
+//    @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 0, max = 3)
     private Integer page_size ;
 
-    private String notification ;
+    private String notifications;
 
 //    private List<Integer> projectsDto ;
 
@@ -231,11 +259,11 @@ public class UserDto implements Comparable<UserDto>{
         this.note = note;
     }
 
-    public Character getConfirm_key() {
+    public String getConfirm_key() {
         return confirm_key;
     }
 
-    public void setConfirm_key(Character confirm_key) {
+    public void setConfirm_key(String confirm_key) {
         this.confirm_key = confirm_key;
     }
 
@@ -255,12 +283,12 @@ public class UserDto implements Comparable<UserDto>{
         this.page_size = page_size;
     }
 
-    public String getNotification() {
-        return notification;
+    public String getNotifications() {
+        return notifications;
     }
 
-    public void setNotification(String notification) {
-        this.notification = notification;
+    public void setNotifications(String notifications) {
+        this.notifications = notifications;
     }
 
 //    public List<Integer> getProjectsDto() {
@@ -301,7 +329,7 @@ public class UserDto implements Comparable<UserDto>{
                 ", confirm_key=" + confirm_key +
                 ", avatar='" + avatar + '\'' +
                 ", page_size=" + page_size +
-                ", notification='" + notification + '\'' +
+                ", notification='" + notifications + '\'' +
                 '}';
     }
 

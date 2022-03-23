@@ -1,5 +1,6 @@
 package com.besidetech.training;
 
+import com.besidetech.training.modelDto.ChargeDto;
 import com.besidetech.training.repository.ChargeRepository;
 import com.besidetech.training.repository.ProjectRepository;
 import com.besidetech.training.repository.UserRepository;
@@ -51,7 +52,21 @@ public class TrainingApplication {
 	public CommandLineRunner dateGenerator(ApplicationContext ctx) {
 		return (args) -> {
 
-			
+//			User user = new User()  ;
+//			Json
+//			System.out.println( chargeRepository.findChargeByProjectId(11));
+//
+//			Map<Integer, Map<Integer, ChargeDto>> charge = new HashMap<>() ;
+//
+//			Map<Integer , ChargeDto> interno = new HashMap<>();
+//			interno.put(1 , chargeService.findById(14733));
+//			interno.put(2 , chargeService.findById(14748));
+//			charge.put(1 , interno) ;
+//
+//			chargeService.saveAll(charge) ;
+
+
+
 			System.out.println("----END---");
 		};
 	}

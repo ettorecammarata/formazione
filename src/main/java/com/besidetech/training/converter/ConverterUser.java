@@ -3,8 +3,6 @@ package com.besidetech.training.converter;
 import com.besidetech.training.model.User;
 import com.besidetech.training.modelDto.UserDto;
 
-import java.lang.reflect.Field;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -38,12 +36,12 @@ public class ConverterUser {
                 userDto.setConfirm_key(user.getConfirm_key());
                 userDto.setAvatar(user.getAvatar());
                 userDto.setPage_size(user.getPage_size());
-                userDto.setNotification(user.getNotification());
+                userDto.setNotifications(user.getNotifications());
                 return userDto ;
         }
 
         public static User convertToUser(UserDto userDto) {
-                if(userDto.equals(null))
+                if(userDto==null)
                         return null ;
                 User userNormale = new User() ;
                 userNormale.setId(userDto.getId());
@@ -70,7 +68,7 @@ public class ConverterUser {
                 userNormale.setConfirm_key(userDto.getConfirm_key());
                 userNormale.setAvatar(userDto.getAvatar());
                 userNormale.setPage_size(userDto.getPage_size());
-                userNormale.setNotification(userDto.getNotification());
+                userNormale.setNotifications(userDto.getNotifications());
 //                List<Integer> projectsId = new ArrayList<>() ;
 //                for (UserProject up : userDto.getProjects()) {
 //                        projectsId.add(up.getProject().getId()) ;

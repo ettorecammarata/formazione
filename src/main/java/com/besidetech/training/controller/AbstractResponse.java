@@ -7,7 +7,22 @@ import java.util.Set;
 
 public abstract class AbstractResponse<T> {
 
-//    public final String
+    public final String USER_NOT_FOUND = "User non trovato " ;
+//    public final String CHARGE_NOT_FOUND = "Charge non trovato " ;
+//    public final String PROJECT_NOT_FOUND = "User non trovato " ;
+
+//    public final String USER_ALREADY_PRESENT = "User non trovato " ;
+//    public final String USER_ALREADY_FOUND = "User non trovato " ;
+
+//    public final String USER_NOT_FOUND = "User non trovato " ;
+//    public final String USER_NOT_FOUND = "User non trovato " ;
+//    public final String USER_NOT_FOUND = "User non trovato " ;
+//    public final String USER_NOT_FOUND = "User non trovato " ;
+//    public final String USER_NOT_FOUND = "User non trovato " ;
+//    public final String USER_NOT_FOUND = "User non trovato " ;
+//    public final String USER_NOT_FOUND = "User non trovato " ;
+
+
 
 
     protected RestResponse <T> createResponse (Integer status ,String message , T result ) {

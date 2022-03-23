@@ -8,92 +8,93 @@ import java.io.Serializable;
 import java.util.*;
 
 @Entity
-@Table(name="myt_user")
-public class User implements Serializable , Comparable<User> {
+@Table(name = "myt_user")
+public class User implements Serializable, Comparable<User> {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer id ; // identificiatore dell'utente
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id; // identificiatore dell'utente
 
-    @Column(name="created")
-    private Date created ; // rappresenta la data di creazione dell utente
+    @Column(name = "created")
+    private Date created; // rappresenta la data di creazione dell utente
 
-    @Column(name="created_by")
-    private Integer created_by ;// rappresenta l id dell'user che effettua la creazione
+    @Column(name = "created_by")
+    private Integer created_by;// rappresenta l id dell'user che effettua la creazione
 
-    @Column(name="last_upd")
-    private Date last_update ; // data ultimo aggiornamento
+    @Column(name = "last_upd")
+    private Date last_update; // data ultimo aggiornamento
 
-    @Column(name="last_upd_by")
-    private Integer last_update_by ; // rappresenta l id dell user che effettua l'aggiornamento
+    @Column(name = "last_upd_by")
+    private Integer last_update_by; // rappresenta l id dell user che effettua l'aggiornamento
 
-    @Column(name="username")
-    private String username ; // è anche considerata una chiave primaria all interno del db
+    @Column(name = "username")
+    private String username; // è anche considerata una chiave primaria all interno del db
 
-    @Column(name="password")
-    private String password ; // il campo non puo essere vuoto
+    @Column(name = "password")
+    private String password; // il campo non puo essere vuoto
 
-    @Column(name="email")
-    private String email ;
 
-    @Column(name="active")
-    private Boolean active ; // da verificare la reale funzione
+    @Column(name = "email")
+    private String email;
 
-    @Column(name="name")
-    private String name ; // nome utente
+    @Column(name = "active")
+    private Boolean active; // da verificare la reale funzione
 
-    @Column(name="surname")
-    private String surname ; // congome utente
+    @Column(name = "name")
+    private String name; // nome utente
 
-    @Column(name="gender")
-    private char gender ; // sesso dell utente
+    @Column(name = "surname")
+    private String surname; // congome utente
 
-    @Column(name="level")
-    private String level ; // livello gerarchico dell utente
+    @Column(name = "gender")
+    private char gender; // sesso dell utente
 
-    @Column(name="phone")
-    private String phone ; // numero di telefono fisso dell utente
+    @Column(name = "level")
+    private String level; // livello gerarchico dell utente
 
-    @Column(name="mobile")
-    private String mobile ; // numero di telefono mobile dell utente
+    @Column(name = "phone")
+    private String phone; // numero di telefono fisso dell utente
 
-    @Column(name="load_cost")
-    private Float load_cost ; // CHIEDERE A COSA SERVE
+    @Column(name = "mobile")
+    private String mobile; // numero di telefono mobile dell utente
 
-    @Column(name="bill_code")
-    private Integer bill_code ; // CHIEDERE A COSA SERVE
+    @Column(name = "load_cost")
+    private Float load_cost; // CHIEDERE A COSA SERVE
 
-    @Column(name="seat_charge")
-    private Float seat_charge ;// CHIEDERE A COSA SERVE
+    @Column(name = "bill_code")
+    private Integer bill_code; // CHIEDERE A COSA SERVE
 
-    @Column(name="daily_hours")
-    private Float daily_hours ; // ore giornaliere di lavoro dell'utente
+    @Column(name = "seat_charge")
+    private Float seat_charge;// CHIEDERE A COSA SERVE
 
-    @Column(name="profile_id")
-    private Integer profile_id ; // CHIEDERE A COSA SERVE
+    @Column(name = "daily_hours")
+    private Float daily_hours; // ore giornaliere di lavoro dell'utente
 
-    @Column(name="note")
-    private String note ; //
+    @Column(name = "profile_id")
+    private Integer profile_id; // CHIEDERE A COSA SERVE
 
-    @Column(name="confirm_key")
-    private Character confirm_key ; //
+    @Column(name = "note")
+    private String note; //
 
-    @Column(name="avatar")
-    private String avatar ;
+    @Column(name = "confirm_key")
+    private String confirm_key; //
 
-    @Column(name="page_size")
-    private Integer page_size ;
+    @Column(name = "avatar")
+    private String avatar;
 
-    @Column(name="notification")
-    private String notification ;
+    @Column(name = "page_size")
+    private Integer page_size;
+
+    @Column(name = "notifications")
+    private String notifications;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user" , fetch=FetchType.LAZY , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     Set<UserProject> projects = new TreeSet<>();
 
     @JsonBackReference
-    @OneToMany(mappedBy = "user" , fetch=FetchType.LAZY , cascade = CascadeType.ALL)
-    Set<Charge> charges = new TreeSet<>() ;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    Set<Charge> charges = new TreeSet<>();
 
     public Set<UserProject> getProjects() {
         return projects;
@@ -103,7 +104,8 @@ public class User implements Serializable , Comparable<User> {
         this.projects = projects;
     }
 
-    public User()  {} // costruttore vuoto
+    public User() {
+    } // costruttore vuoto
 
     public Integer getId() {
         return id;
@@ -273,11 +275,11 @@ public class User implements Serializable , Comparable<User> {
         this.note = note;
     }
 
-    public Character getConfirm_key() {
+    public String getConfirm_key() {
         return confirm_key;
     }
 
-    public void setConfirm_key(Character confirm_key) {
+    public void setConfirm_key(String confirm_key) {
         this.confirm_key = confirm_key;
     }
 
@@ -297,12 +299,12 @@ public class User implements Serializable , Comparable<User> {
         this.page_size = page_size;
     }
 
-    public String getNotification() {
-        return notification;
+    public String getNotifications() {
+        return notifications;
     }
 
-    public void setNotification(String notification) {
-        this.notification = notification;
+    public void setNotifications(String notifications) {
+        this.notifications = notifications;
     }
 
 //    @Override
@@ -316,42 +318,14 @@ public class User implements Serializable , Comparable<User> {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", created=" + created +
-                ", created_by=" + created_by +
-                ", last_update=" + last_update +
-                ", last_update_by=" + last_update_by +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", active=" + active +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", gender=" + gender +
-                ", level='" + level + '\'' +
-                ", phone='" + phone + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", load_cost=" + load_cost +
-                ", bill_code=" + bill_code +
-                ", seat_charge=" + seat_charge +
-                ", daily_hours=" + daily_hours +
-                ", profile_id=" + profile_id +
-                ", note='" + note + '\'' +
-                ", confirm_key=" + confirm_key +
-                ", avatar='" + avatar + '\'' +
-                ", page_size=" + page_size +
-                ", notification='" + notification + '\'' +
-                '}';
+        return "User{" + "id=" + id + ", created=" + created + ", created_by=" + created_by + ", last_update=" + last_update + ", last_update_by=" + last_update_by + ", username='" + username + '\'' + ", password='" + password + '\'' + ", email='" + email + '\'' + ", active=" + active + ", name='" + name + '\'' + ", surname='" + surname + '\'' + ", gender=" + gender + ", level='" + level + '\'' + ", phone='" + phone + '\'' + ", mobile='" + mobile + '\'' + ", load_cost=" + load_cost + ", bill_code=" + bill_code + ", seat_charge=" + seat_charge + ", daily_hours=" + daily_hours + ", profile_id=" + profile_id + ", note='" + note + '\'' + ", confirm_key=" + confirm_key + ", avatar='" + avatar + '\'' + ", page_size=" + page_size + ", notification='" + notifications + '\'' + '}';
     }
 
 
     @Override
     public int compareTo(User o) {
-        if (this.getId()>o.getId())
-            return 1 ;
-        if (this.getId()<o.getId())
-            return -1 ;
+        if (this.getId() > o.getId()) return 1;
+        if (this.getId() < o.getId()) return -1;
         return 0;
     }
 }

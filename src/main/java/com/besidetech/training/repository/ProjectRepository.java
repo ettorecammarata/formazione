@@ -1,7 +1,6 @@
 package com.besidetech.training.repository;
 
 import com.besidetech.training.model.Project;
-import com.besidetech.training.model.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
