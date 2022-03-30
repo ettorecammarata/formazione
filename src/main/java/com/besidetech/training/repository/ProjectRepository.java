@@ -13,6 +13,7 @@ public interface ProjectRepository extends CrudRepository <Project, Integer>  {
     //recuperare tutti i progetti dato uno user_id
     //scorriamo in projects che è un istanza di user_project e andiamo ad iterare su user id
     List<Project> findByProjectsUserId(Integer user) ;
-   Set <Project> findAll ();
+    Set <Project> findAll ();
+
 
 }

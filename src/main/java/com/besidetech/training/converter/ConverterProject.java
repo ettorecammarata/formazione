@@ -10,14 +10,12 @@ public class ConverterProject {
 
     //convertToSetOfProject
     //convertToSetOfProjectDto
-    //convertToProject ok
-    //convertToProjectDto ok
+    //convertToProject
+    //convertToProjectDto
 
     public static ProjectDto convertToProjectDto(Project project) {
-
-//        if (Project==null)
-//            return null;
-
+        if(project==null)
+            return null ;
         ProjectDto projectDto=new ProjectDto();
 
         projectDto.setId(project.getId());
@@ -29,6 +27,7 @@ public class ConverterProject {
         projectDto.setPrefix(project.getPrefix());
         projectDto.setDescription(project.getDescription());
         projectDto.setStatus(project.getStatus()) ;
+        //projectDto.setProject(project.getProjects());//dubbio grosso grosso
         projectDto.setStartDate(project.getStartDate());
         projectDto.setStartDate(project.getEndDate());
         projectDto.setStartDate(project.getEffStartDate());
@@ -40,43 +39,41 @@ public class ConverterProject {
     }
 
 
+    public static Project convertToProject(ProjectDto  projectDto)  {
+        if(projectDto.equals(null))
+            return null ;
+        Project project = new Project() ;
 
-    public static Project convertToProject (ProjectDto projectDto){
-        if (projectDto==null)
-            return null;
-        Project projectN= new Project();
-        projectN.setId(projectDto.getId());
-        projectN.setCreated(projectDto.getCreated());
-        projectN.setCreatedBy(projectDto.getCreatedBy());
-        projectN.setLastUpdate(projectDto.getLastUpdate());
-        projectN.setLastUpdateBy(projectDto.getLastUpdateBy());
-        projectN.setName(projectDto.getName());
-        projectN.setPrefix(projectDto.getPrefix());
-        projectN.setDescription(projectDto.getDescription());
-        projectN.setStatus(projectDto.getStatus()) ;
-        projectN.setStartDate(projectDto.getStartDate());
-        projectN.setStartDate(projectDto.getEndDate());
-        projectN.setStartDate(projectDto.getEffStartDate());
-        projectN.setStartDate(projectDto.getEffEndDate());
-        projectN.setClient(projectDto.getClient());
-        projectN.setChargableFlag(projectDto.getChargableFlag());
+        project.setId(projectDto.getId());
+        project.setCreated(projectDto.getCreated());
+        project.setCreatedBy(projectDto.getCreatedBy());
+        project.setLastUpdate(projectDto.getLastUpdate());
+        project.setLastUpdateBy(projectDto.getLastUpdateBy());
+        project.setName(projectDto.getName());
+        project.setPrefix(projectDto.getPrefix());
+        project.setDescription(projectDto.getDescription());
+        project.setStatus(projectDto.getStatus()) ;
+        project.setStartDate(projectDto.getStartDate());
+        project.setEndDate(projectDto.getEndDate());
+        project.setEffStartDate(projectDto.getEffStartDate());
+        project.setEffEndDate(projectDto.getEffEndDate());
+        project.setClient(projectDto.getClient());
+        project.setChargableFlag(projectDto.getChargableFlag());
 
-        return projectN ;
+        return project;
+
     }
 
-
-
-    public static Set<ProjectDto> convertToSetOfProjectDto (Set<Project>  projectsCollection ) {
-        if (projectsCollection.isEmpty())
-            return null;
-
+    public static Set<ProjectDto> convertToSetOfProjectDto (Set<Project> projectCollection ) {
+        if(projectCollection.isEmpty())
+            return null ;
         Set<ProjectDto> listaProjectDto = new TreeSet<>() ;
-
-        for (Project p : projectsCollection) {
+        for (Project p : projectCollection) {
             listaProjectDto.add(convertToProjectDto(p)) ;
         }
         return listaProjectDto ;
     }
+
 
     public static Set<Project> convertToSetOfProject (Set<ProjectDto> projectCollection ) {
         Set<Project> lista = new TreeSet<>() ;
@@ -85,7 +82,6 @@ public class ConverterProject {
         }
         return lista ;
     }
-
 
 
 }

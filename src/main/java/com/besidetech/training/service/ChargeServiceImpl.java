@@ -6,10 +6,13 @@ import com.besidetech.training.converter.ConverterCharge;
 import com.besidetech.training.model.Project;
 import com.besidetech.training.model.User;
 import com.besidetech.training.modelDto.ChargeDto;
+import com.besidetech.training.modelDto.ExactMothDateDto;
+import com.besidetech.training.modelDto.MyTimesheetDto;
+import com.besidetech.training.modelDto.RequestChargeDto;
 import com.besidetech.training.repository.ChargeRepository;
 import com.besidetech.training.repository.ProjectRepository;
 import com.besidetech.training.repository.UserRepository;
-import org.javatuples.Pair;
+import com.besidetech.training.util.MyUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,20 +46,6 @@ public class ChargeServiceImpl implements ChargeService {
         return ConverterCharge.convertToChargeDto(tmp.get());
     }
 
-    /*
-
-    @Override
-    public void saveAll(List<ChargeDto> charge)throws TimesheetException{
-        for (ChargeDto c : charge) {
-        if (!chargeRepository.findById(c.getId()).isPresent() )
-            chargeRepository.save(ConverterCharge.convertToCharge(c)) ;
-        else
-            throw new TimesheetException(c.getId() + " già esistente ") ;
-        }
-    }
-
-     */
-
     @Override
     public void save(ChargeDto charge) throws TimesheetException {
         if (!chargeRepository.findById(charge.getId()).isPresent() )
@@ -77,7 +66,7 @@ public class ChargeServiceImpl implements ChargeService {
     }
 
     @Override
-    public void saveAll(Map<Integer , List<ChargeDto>> charges ) throws TimesheetException {
+    public void saveAll(Map<Integer , List<ChargeDto>> charges )  {
         for (Map.Entry<Integer,List<ChargeDto>> m :charges.entrySet()) {
             Integer currentProject = m.getKey() ;
             List<ChargeDto> currentList = m.getValue() ;
@@ -112,7 +101,100 @@ public class ChargeServiceImpl implements ChargeService {
     }
 
 
+    @Override
+    public List<ChargeDto> findAndSortByDate(ExactMothDateDto currentMonth) // dato un user ottengo tutti i suoi charge do un determinato mese
+    {
+        Set<Charge> mySet = chargeRepository.findByDayBetweenAndUserId(currentMonth.getBegin(),currentMonth.getEnd(),currentMonth.getUser()) ;
+        Set<ChargeDto> mySetDto = ConverterCharge.convertToSetOfChargeDto(mySet) ;
+        List<ChargeDto> listDto = mySetDto.stream().toList();
 
+        System.out.println("set");
+        for (Charge c :mySet) {
+            System.out.println(c);
+        }
+
+        System.out.println("mySetDto");
+        for (ChargeDto c :mySetDto) {
+            System.out.println(c);
+        }
+
+        System.out.println("listDto");
+        for (ChargeDto c : listDto) {
+            System.out.println(c);
+        }
+
+
+        System.out.println("sorted");
+        for (ChargeDto c : MyUtilities.sort(listDto)) {
+            System.err.println(c);
+        }
+        return listDto;
+    }
+
+    @Override
+    public Set<ChargeDto> findSortedCharge(RequestChargeDto currentMonth) throws TimesheetException {
+        // mi restituisce i charge di una user ordinati in base al progetto e alla date
+        Calendar cal = Calendar.getInstance() ;
+        cal.set(currentMonth.getYear() , MyUtilities.getMonth(currentMonth.getMonth()) , 1 , 0 , 0 , 0);
+        Date begin = cal.getTime() ;
+        cal.set(currentMonth.getYear() , MyUtilities.getMonth(currentMonth.getMonth()) ,MyUtilities.getEnd(begin) , 23 , 59 , 59);
+        Date end = cal.getTime() ;
+
+        Set<ChargeDto> mySet = ConverterCharge.convertToSetOfChargeDto(chargeRepository.findByDayBetweenAndUserId(begin,end,currentMonth.getUser())) ;
+
+        return mySet ;
+
+
+
+
+
+
+
+
+
+
+
+
+//        System.out.println("Set");
+//        for (ChargeDto cMySet :mySet ) {
+//            System.err.println(cMySet);
+//        }
+//
+//        List<ChargeDto > listaDisodinata = mySet.stream().toList() ;
+//
+//        System.out.println("risultato disordinato : ");
+//
+//        for (ChargeDto c : listaDisodinata) {
+//            System.out.println(c);
+//        }
+//
+//        List<ChargeDto > listaOrdinata = MyUtilities.sort(listaDisodinata) ;
+//
+//        System.out.println("risultato ordinata : ");
+//        for (ChargeDto c :listaOrdinata ) {
+//            System.out.println(c);
+//        }
+
+
+
+    }
+
+    @Override
+    public MyTimesheetDto getTimesheetDto(RequestChargeDto requestChargeDto) throws Exception {
+        Set<ChargeDto> testListaCharges = findSortedCharge(requestChargeDto)  ;
+        List<Integer> testProgetti = MyUtilities.getListOfProject(testListaCharges) ;
+        MyTimesheetDto m = new MyTimesheetDto();
+        m.setProjects(testProgetti);
+        m.setCharges(testListaCharges);
+        m.fill();
+        m.printMySheet();
+        return m ;
+    }
+
+//    @Override
+//    public List<ChargeDto> findAndSortDay(ChargeDayDto chargeDayDto) {
+//        return null;
+//    }
 
 
 }

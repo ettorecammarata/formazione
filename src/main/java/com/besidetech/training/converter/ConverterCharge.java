@@ -3,6 +3,8 @@ package com.besidetech.training.converter;
 import com.besidetech.training.model.Charge;
 import com.besidetech.training.modelDto.ChargeDto;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -13,7 +15,7 @@ public class ConverterCharge {
     //convertToChargeDto
 
     public static ChargeDto convertToChargeDto(Charge charge) {
-        com.besidetech.training.modelDto.ChargeDto myChargeDto = new com.besidetech.training.modelDto.ChargeDto() ;
+        ChargeDto myChargeDto = new ChargeDto() ;
         myChargeDto.setId(charge.getId());
         myChargeDto.setCreated(charge.getCreated());
         myChargeDto.setCreated_by(charge.getCreated_by());

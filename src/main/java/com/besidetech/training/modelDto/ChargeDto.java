@@ -113,11 +113,19 @@ public class ChargeDto implements Comparable<ChargeDto>{
     }
 
     @Override
-    public int compareTo(ChargeDto o) {
-        if (this.getId()>o.getId())
-            return 1 ;
-        if (this.getId()<o.getId())
-            return -1 ;
-        return 0;
+    public int compareTo(ChargeDto o) { // ordina in ordine crescente
+        if (this.getIdProject() != o.getIdProject())
+            return this.getIdProject() - o.getIdProject();
+        return this.getDay().compareTo(o.getDay()) ;
+    }
+
+    @Override
+    public String toString() {
+        return "ChargeDto{" +
+                "id=" + id +
+                ", idProject=" + idProject +
+                ", day=" + day +
+                ", hours=" + hours +
+                '}';
     }
 }

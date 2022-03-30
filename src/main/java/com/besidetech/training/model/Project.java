@@ -1,6 +1,7 @@
 package com.besidetech.training.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -68,19 +69,14 @@ public class Project implements Serializable {
     private Integer chargableFlag ; // chiedere se questo è un boolean
 
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "project" , fetch = FetchType.LAZY)
     Set<UserProject> projects = new TreeSet<>() ;
 
     public Project () {}
 
-    public Set<UserProject> getProjects() {
-        return projects;
-    }
 
-    public void setProjects(Set<UserProject> projects) {
-        this.projects = projects;
-    }
+
 
     public Integer getId() {
         return id;
@@ -146,6 +142,14 @@ public class Project implements Serializable {
         this.description = description;
     }
 
+    public String getChampionId() {
+        return championId;
+    }
+
+    public void setChampionId(String championId) {
+        this.championId = championId;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -206,14 +210,6 @@ public class Project implements Serializable {
         return client;
     }
 
-    public String getChampionId() {
-        return championId;
-    }
-
-    public void setChampionId(String championId) {
-        this.championId = championId;
-    }
-
     public void setClient(String client) {
         this.client = client;
     }
@@ -225,13 +221,40 @@ public class Project implements Serializable {
     public void setChargableFlag(Integer chargableFlag) {
         this.chargableFlag = chargableFlag;
     }
+    public Set<UserProject> getProjects() {
+        return projects;
+    }
+    public void setProjects(Set<UserProject> projects) {
+        this.projects = projects;
+    }
 
+ 
     @Override
     public String toString() {
         return "Project{" +
-                ", id=" + id +
+                "id=" + id +
+                ", created=" + created +
+                ", createdBy=" + createdBy +
+                ", lastUpdate=" + lastUpdate +
+                ", lastUpdateBy=" + lastUpdateBy +
                 ", name='" + name + '\'' +
+                ", prefix='" + prefix + '\'' +
+                ", description='" + description + '\'' +
+                ", championId='" + championId + '\'' +
+                ", status='" + status + '\'' +
+                ", progress=" + progress +
+                ", parProjectId=" + parProjectId +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", effStartDate=" + effStartDate +
+                ", effEndDate=" + effEndDate +
+                ", client='" + client + '\'' +
+                ", chargableFlag=" + chargableFlag +
+                ", projects=" + projects +
                 '}';
     }
+
+
+
 
 }

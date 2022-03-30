@@ -1,19 +1,25 @@
 package com.besidetech.training.modelDto;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class ProjectDto  implements Comparable<ProjectDto> {
 
     private Integer id ; // identificiatore del progetto
 
+    @NotNull(message = "{ non può essere null }")
     private Date created  ; //
 
+    @NotNull(message = "{ non può essere null }")
     private  Integer createdBy ; //
 
+    @NotNull(message = "{ non può essere null }")
     private Date lastUpdate ; //
+
 
     private Integer lastUpdateBy ; //
 
+    @NotNull(message = "{ non può essere null }")
     private  String name ; //
 
     private String prefix ; //
@@ -38,8 +44,8 @@ public class ProjectDto  implements Comparable<ProjectDto> {
 
     private String client ; //
 
-    private Integer chargableFlag ; // chiedere se questo è un boolean
-
+    @NotNull(message = "{chargableFlag non può essere null }")
+    private Integer chargableFlag ; //
 
     public Integer getId() {
         return id;

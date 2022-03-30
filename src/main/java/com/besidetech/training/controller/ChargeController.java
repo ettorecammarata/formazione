@@ -1,13 +1,14 @@
 package com.besidetech.training.controller;
 
 import com.besidetech.training.exception.TimesheetException;
+import com.besidetech.training.modelDto.ExactMothDateDto;
 import com.besidetech.training.modelDto.ChargeDto;
-import com.besidetech.training.modelDto.ChargeMap;
+import com.besidetech.training.modelDto.MyTimesheetDto;
+import com.besidetech.training.modelDto.RequestChargeDto;
 import com.besidetech.training.restmodel.RestCollectionResponse;
 import com.besidetech.training.restmodel.RestResponse;
 import com.besidetech.training.restmodel.restresources.RestResources;
 import com.besidetech.training.service.ChargeService;
-import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(RestResources.REST_CHARGE)
@@ -30,7 +33,6 @@ public class ChargeController extends AbstractResponse<ChargeDto>{
             return createResponse(500 , "Charge {"+ id + "} non trovato " , null ) ;
         else
             return createResponse(200 , "Charge recuperato correttamente" ,myChargeDto   ) ;
-
     }
 
     @PostMapping (RestResources.SAVE)
@@ -69,7 +71,6 @@ public class ChargeController extends AbstractResponse<ChargeDto>{
         }
     }
 
-
     @PostMapping(RestResources.SAVE_ALL)
     public RestCollectionResponse<ChargeDto> saveAll (@RequestBody Map<Integer , List<ChargeDto>> charges ) {
         try {
@@ -80,5 +81,34 @@ public class ChargeController extends AbstractResponse<ChargeDto>{
         }
     }
 
+    @GetMapping (RestResources.GET_MONTH)
+    public RestCollectionResponse<ChargeDto> getMonthCharge (@RequestBody ExactMothDateDto current ) {
+        try {
+            List<ChargeDto> tmp = chargeService.findAndSortByDate(current) ;
+            return createCollectionResponse(200 , "lista recuperata " , tmp.stream().collect(Collectors.toSet()) );
+        }catch (TimesheetException e) {
+            return createCollectionResponse(500, e.getMessage(), null);
+        }
+    }
+
+    @GetMapping (RestResources.GET_MONTH + "/my")
+    public RestCollectionResponse<ChargeDto> getDateCharge (@RequestBody RequestChargeDto current ) {
+        try {
+            Set<ChargeDto> tmp = chargeService.findSortedCharge(current) ;
+            return createCollectionResponse(200 , "lista recuperata " , tmp );
+        }catch (TimesheetException e) {
+            return createCollectionResponse(500, e.getMessage(), null);
+        }
+    }
+
+    @GetMapping (RestResources.GET_TIMESHEET)
+    public  RestCollectionResponse<ChargeDto> getTimesheet (@RequestBody RequestChargeDto requestChargeDto) {
+        try {
+            MyTimesheetDto response = chargeService.getTimesheetDto(requestChargeDto) ;
+            return createCollectionResponse(200 , "timesheet recuperato " , null ) ;
+        }catch (Exception e ) {
+            return createCollectionResponse(500 , "timesheet non recuperato " , null ) ;
+        }
+    }
 
 }
