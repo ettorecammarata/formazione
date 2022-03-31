@@ -1,9 +1,5 @@
 package com.besidetech.training;
 
-import com.besidetech.training.modelDto.ChargeDto;
-import com.besidetech.training.modelDto.MyTimesheetDto;
-import com.besidetech.training.modelDto.TimesheetRowDto;
-import com.besidetech.training.modelDto.RequestChargeDto;
 import com.besidetech.training.repository.ChargeRepository;
 import com.besidetech.training.repository.ProjectRepository;
 import com.besidetech.training.repository.UserRepository;
@@ -11,15 +7,12 @@ import com.besidetech.training.service.ChargeService;
 import com.besidetech.training.service.ProjectService;
 import com.besidetech.training.service.UserProjectService;
 import com.besidetech.training.service.UserService;
-import com.besidetech.training.util.MyUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-
-import java.util.*;
 
 @SpringBootApplication
 public class TrainingApplication {
