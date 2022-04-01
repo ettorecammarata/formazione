@@ -11,7 +11,6 @@ public class MyThread {
                 System.out.println("thread A");
         });
 
-
         Thread mytB = new Thread(()-> {
                 System.err.println("thread B");
         });
