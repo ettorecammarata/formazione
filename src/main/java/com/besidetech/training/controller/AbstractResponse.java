@@ -7,21 +7,28 @@ import java.util.Set;
 
 public abstract class AbstractResponse<T> {
 
-    public final String USER_NOT_FOUND = "User non trovato " ;
-//    public final String CHARGE_NOT_FOUND = "Charge non trovato " ;
-//    public final String PROJECT_NOT_FOUND = "User non trovato " ;
+    public static final String USER_NOT_FOUND = "User non trovato " ;
 
-//    public final String USER_ALREADY_PRESENT = "User non trovato " ;
-//    public final String USER_ALREADY_FOUND = "User non trovato " ;
+    public static final String BINDIG_RESULT = "Binding result : " ;
+    public static final String ERROR_IN_FIELD = "Errore sul campo ";
 
-//    public final String USER_NOT_FOUND = "User non trovato " ;
-//    public final String USER_NOT_FOUND = "User non trovato " ;
-//    public final String USER_NOT_FOUND = "User non trovato " ;
-//    public final String USER_NOT_FOUND = "User non trovato " ;
-//    public final String USER_NOT_FOUND = "User non trovato " ;
-//    public final String USER_NOT_FOUND = "User non trovato " ;
-//    public final String USER_NOT_FOUND = "User non trovato " ;
+    public static final String GET_TIMESHEET = "Timesheet recuperato correttamente " ;
+    public static final String FAILED_GET_TIMESHEET = "Timesheet non recuperato ";
 
+    public static final String SAVED_CHARGE = "Charge salvato con successo ";
+    public static final String CHARGE_NOT_FOUND = "Charge non trovato " ;
+    public static final String CHARGE_IDENTIFIED = "Charge recuperato correttamente ";
+    public static final String CHARGE_UPDATED = "Charge aggiornato correttamente ";
+    public static final String CHARGE_NOT_UPDATED = "Charge aggiornato correttamente ";
+    public static final String CHARGE_DELETED = "Charge cancellato con successo " ;
+    public static final String CHARGE_SAVED = "Charge salvato con successo " ;
+    public static final String LIST_OF_CHARGE = "Lista recuperata " ;
+
+    public static final String GETTED_USER = "Utente recuperato correttamente " ;
+    public static final String SAVED_USER = "Utente salvato con successo " ;
+    public static final String USER_UPDATED = "Utente aggiornato correttamente " ;
+    public static final String USER_NOT_UPDATED = "Utente non aggiornato " ;
+    public static final String USER_DELETED = "Utente eliminato " ;
 
 
 

@@ -30,20 +30,20 @@ public class ChargeController extends AbstractResponse<ChargeDto>{
     RestResponse<ChargeDto> findId (@PathVariable("id") Integer id ){
         ChargeDto myChargeDto = chargeService.findById(id) ;
         if (myChargeDto==null)
-            return createResponse(500 , "Charge {"+ id + "} non trovato " , null ) ;
+            return createResponse(500 , AbstractResponse.CHARGE_NOT_FOUND , null ) ;
         else
-            return createResponse(200 , "Charge recuperato correttamente" ,myChargeDto   ) ;
+            return createResponse(200 , AbstractResponse.CHARGE_IDENTIFIED ,myChargeDto   ) ;
     }
 
     @PostMapping (RestResources.SAVE)
     RestResponse<ChargeDto> save ( @Valid @RequestBody ChargeDto charge ,BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            System.err.println("binding result : " +  bindingResult.getFieldError().getDefaultMessage());
-            return createResponse(500 , "errore sul campo "+bindingResult.getFieldError() , null ) ;
+            System.err.println(AbstractResponse.BINDIG_RESULT +  bindingResult.getFieldError().getDefaultMessage());
+            return createResponse(500 , AbstractResponse.ERROR_IN_FIELD + bindingResult.getFieldError() , null ) ;
         }
         try{
             chargeService.save(charge);
-            return createResponse(200 , "Charge salvato con successo" , null ) ;
+            return createResponse(200 , SAVED_CHARGE , null ) ;
         }catch (TimesheetException e ){
             return createResponse(500 , e.getMessage() , null ) ;
         }
@@ -55,9 +55,9 @@ public class ChargeController extends AbstractResponse<ChargeDto>{
         charge.setId(tmp.getId());
         try {
             chargeService.save(charge);
-            return createResponse(200 , "charge aggiornato correttamente " , charge) ;
+            return createResponse(200 , AbstractResponse.CHARGE_UPDATED , charge) ;
         }catch ( TimesheetException f ) {
-            return createResponse(500 , "charge non aggiornato " , null ) ;
+            return createResponse(500 , AbstractResponse.CHARGE_NOT_UPDATED , null ) ;
         }
     }
 
@@ -65,7 +65,7 @@ public class ChargeController extends AbstractResponse<ChargeDto>{
     RestResponse<ChargeDto> delete (@RequestBody ChargeDto charge ) {
         try{
             chargeService.delete(charge);
-            return createResponse(200 , "Charge cancellato con successo" , null ) ;
+            return createResponse(200 , CHARGE_DELETED, null ) ;
         }catch (TimesheetException e ){
             return createResponse(500 , e.getMessage() , null ) ;
         }
@@ -75,7 +75,7 @@ public class ChargeController extends AbstractResponse<ChargeDto>{
     public RestCollectionResponse<ChargeDto> saveAll (@RequestBody Map<Integer , List<ChargeDto>> charges ) {
         try {
             chargeService.saveAll(charges);
-            return createCollectionResponse(200 , "inserito charge" , null);
+            return createCollectionResponse(200 , CHARGE_SAVED, null);
         }catch (Exception e) {
             return createCollectionResponse(500 , e.getMessage() , null );
         }
@@ -85,7 +85,7 @@ public class ChargeController extends AbstractResponse<ChargeDto>{
     public RestCollectionResponse<ChargeDto> getMonthCharge (@RequestBody ExactMothDateDto current ) {
         try {
             List<ChargeDto> tmp = chargeService.findAndSortByDate(current) ;
-            return createCollectionResponse(200 , "lista recuperata " , tmp.stream().collect(Collectors.toSet()) );
+            return createCollectionResponse(200 , LIST_OF_CHARGE , tmp.stream().collect(Collectors.toSet()) );
         }catch (TimesheetException e) {
             return createCollectionResponse(500, e.getMessage(), null);
         }
@@ -95,7 +95,7 @@ public class ChargeController extends AbstractResponse<ChargeDto>{
     public RestCollectionResponse<ChargeDto> getDateCharge (@RequestBody RequestChargeDto current ) {
         try {
             Set<ChargeDto> tmp = chargeService.findSortedCharge(current) ;
-            return createCollectionResponse(200 , "lista recuperata " , tmp );
+            return createCollectionResponse(200 , LIST_OF_CHARGE, tmp );
         }catch (TimesheetException e) {
             return createCollectionResponse(500, e.getMessage(), null);
         }
@@ -105,9 +105,9 @@ public class ChargeController extends AbstractResponse<ChargeDto>{
     public  RestCollectionResponse<ChargeDto> getTimesheet (@RequestBody RequestChargeDto requestChargeDto) {
         try {
             MyTimesheetDto response = chargeService.getTimesheetDto(requestChargeDto) ;
-            return createCollectionResponse(200 , "timesheet recuperato " , null ) ;
+            return createCollectionResponse(200 , GET_TIMESHEET , null ) ;
         }catch (Exception e ) {
-            return createCollectionResponse(500 , "timesheet non recuperato " , null ) ;
+            return createCollectionResponse(500 ,  FAILED_GET_TIMESHEET , null ) ;
         }
     }
 

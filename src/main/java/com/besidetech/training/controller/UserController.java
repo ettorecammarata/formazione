@@ -6,7 +6,6 @@ import com.besidetech.training.restmodel.RestResponse;
 import com.besidetech.training.restmodel.restresources.RestResources;
 import com.besidetech.training.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,9 +22,9 @@ public class UserController extends AbstractResponse<UserDto> {
     RestResponse<UserDto> findId(@PathVariable("id") Integer id) {
         UserDto myUserDto = userService.findById(id);
         if (myUserDto == null)
-            return createResponse(500, id + USER_NOT_FOUND, null);
+            return createResponse(500, id + AbstractResponse.USER_NOT_FOUND, null);
         else
-            return createResponse(200, "Utente recuperato correttamente", myUserDto);
+            return createResponse(200, AbstractResponse.GETTED_USER , myUserDto);
     }
 
 //    il file XML da postare deve essere wrappato tra i tag <Creation></Creation>
@@ -33,12 +32,12 @@ public class UserController extends AbstractResponse<UserDto> {
     RestResponse<UserDto> save(@Valid @RequestBody UserDto user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             //creare lista BindingResult
-            System.err.println("binding result : " + bindingResult.getFieldError().getDefaultMessage());
-            return createResponse(500, "errore sul campo " + bindingResult.getFieldError(), null);
+            System.err.println(AbstractResponse.BINDIG_RESULT + bindingResult.getFieldError().getDefaultMessage());
+            return createResponse(500, AbstractResponse.ERROR_IN_FIELD + bindingResult.getFieldError(), null);
         }
         try {
             userService.save(user);
-            return createResponse(200, "Utente salvato con successo", null);
+            return createResponse(200, AbstractResponse.SAVED_USER, null);
         } catch (TimesheetException e) {
             return createResponse(500, e.getMessage(), null);
         }
@@ -50,9 +49,9 @@ public class UserController extends AbstractResponse<UserDto> {
         user.setId(tmp.getId());
         try {
             userService.update(user);
-            return createResponse(200, "utente aggiornato correttamente ", user);
+            return createResponse(200, AbstractResponse.USER_UPDATED, user);
         } catch (TimesheetException f) {
-            return createResponse(500, "utente non aggiornato ", null);
+            return createResponse(500, AbstractResponse.USER_NOT_UPDATED, null);
         }
     }
 
@@ -60,7 +59,7 @@ public class UserController extends AbstractResponse<UserDto> {
     RestResponse<UserDto> delete(@PathVariable("id") Integer id) {
         try {
             userService.delete(id);
-            return createResponse(200, "Utente eliminato ", null);
+            return createResponse(200, AbstractResponse.USER_DELETED, null);
         } catch (TimesheetException e) {
             return createResponse(500, e.getMessage(), null);
         }
