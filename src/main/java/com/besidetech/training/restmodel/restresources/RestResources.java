@@ -18,4 +18,5 @@ public class RestResources {
 
 
     public static final String GET_TIMESHEET = "/getTimesheet" ;
+    public static final String ROOT = "/";
 }

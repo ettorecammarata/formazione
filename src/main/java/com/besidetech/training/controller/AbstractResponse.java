@@ -7,7 +7,7 @@ import java.util.Set;
 
 public abstract class AbstractResponse<T> {
 
-    public static final String USER_NOT_FOUND = "User non trovato " ;
+
 
     public static final String BINDIG_RESULT = "Binding result : " ;
     public static final String ERROR_IN_FIELD = "Errore sul campo ";
@@ -15,22 +15,29 @@ public abstract class AbstractResponse<T> {
     public static final String GET_TIMESHEET = "Timesheet recuperato correttamente " ;
     public static final String FAILED_GET_TIMESHEET = "Timesheet non recuperato ";
 
-    public static final String SAVED_CHARGE = "Charge salvato con successo ";
+    public static final String CHARGE_SAVE = "Charge salvato con successo ";
     public static final String CHARGE_NOT_FOUND = "Charge non trovato " ;
-    public static final String CHARGE_IDENTIFIED = "Charge recuperato correttamente ";
-    public static final String CHARGE_UPDATED = "Charge aggiornato correttamente ";
-    public static final String CHARGE_NOT_UPDATED = "Charge aggiornato correttamente ";
-    public static final String CHARGE_DELETED = "Charge cancellato con successo " ;
+    public static final String CHARGE_GET = "Charge recuperato correttamente ";
+    public static final String CHARGE_UPDATE = "Charge aggiornato correttamente ";
+    public static final String CHARGE_FAILED_UPDATE = "Charge aggiornato correttamente ";
+    public static final String CHARGE_DELETE = "Charge cancellato con successo " ;
     public static final String CHARGE_SAVED = "Charge salvato con successo " ;
-    public static final String LIST_OF_CHARGE = "Lista recuperata " ;
+    public static final String CHARGE_GET_LIST = "Lista recuperata " ;
 
-    public static final String GETTED_USER = "Utente recuperato correttamente " ;
-    public static final String SAVED_USER = "Utente salvato con successo " ;
-    public static final String USER_UPDATED = "Utente aggiornato correttamente " ;
-    public static final String USER_NOT_UPDATED = "Utente non aggiornato " ;
-    public static final String USER_DELETED = "Utente eliminato " ;
+    public static final String USER_GET = "Utente recuperato correttamente " ;
+    public static final String USER_SAVE = "Utente salvato con successo " ;
+    public static final String USER_UPDATE = "Utente aggiornato correttamente " ;
+    public static final String USER_FAILED_UPDATE = "Utente non aggiornato " ;
+    public static final String USER_DELETE = "Utente eliminato " ;
+    public static final String USER_ALREADY_EXISTING = "Utente già esistente " ;
+    public static final String USER_NOT_FOUND = "User non trovato " ;
 
-
+    public static final String LOG_WELCOME = "Welcome! Check out the Logs to see the output : " ;
+    public static final String LOG_TRACE = "A TRACE Message" ;
+    public static final String LOG_DEBUG = "A DEBUG Message" ;
+    public static final String LOG_INFO = "An INFO Message" ;
+    public static final String LOG_WARN = "A WARN Message" ;
+    public static final String LOG_ERROR = "An ERROR Message" ;
 
     protected RestResponse <T> createResponse (Integer status ,String message , T result ) {
         RestResponse response = new RestResponse() ;

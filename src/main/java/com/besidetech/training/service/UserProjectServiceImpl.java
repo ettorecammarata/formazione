@@ -37,11 +37,6 @@ public class UserProjectServiceImpl implements  UserProjectService{
         return null;
     }
 
-//    @Override
-//    public List<UserProject> findUserByProject(Project project) {
-//        return userProjectRepository.findUserByProject(project);
-//    }
-
     @Override
     public List<UserProject> findByCreatedBetween(Date start, Date end) {
         return userProjectRepository.findByCreatedBetween (start ,  end );

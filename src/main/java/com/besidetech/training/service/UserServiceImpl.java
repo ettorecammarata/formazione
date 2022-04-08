@@ -1,5 +1,6 @@
 package com.besidetech.training.service;
 
+import com.besidetech.training.controller.AbstractResponse;
 import com.besidetech.training.exception.TimesheetException;
 import com.besidetech.training.exception.UserNotFoundException;
 import com.besidetech.training.model.User;
@@ -7,16 +8,21 @@ import com.besidetech.training.converter.ConverterUser;
 import com.besidetech.training.modelDto.UserDto;
 import com.besidetech.training.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 @Service
 @Transactional
-public class UserServiceImpl implements  UserService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder ;
 
     @Override
     public Set<UserDto> getAll() throws UserNotFoundException {
@@ -44,10 +50,12 @@ public class UserServiceImpl implements  UserService {
 
     @Override
     public void save(UserDto user) throws TimesheetException {
-        if (userRepository.findByUsername(user.getUsername())==null)
-            userRepository.save(ConverterUser.convertToUser(user) ) ;
+        if (userRepository.findByUsername(user.getUsername())==null) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(ConverterUser.convertToUser(user));
+        }
         else
-            throw new TimesheetException("Utente già esistente ") ;
+            throw new TimesheetException(AbstractResponse.USER_ALREADY_EXISTING) ;
     }
 
     @Override
@@ -56,7 +64,7 @@ public class UserServiceImpl implements  UserService {
         if (u.isPresent())
             userRepository.delete(u.get());
         else
-            throw new TimesheetException("Utente non trovato ") ;
+            throw new TimesheetException(AbstractResponse.CHARGE_NOT_FOUND) ;
     }
 
     @Override
@@ -74,14 +82,5 @@ public class UserServiceImpl implements  UserService {
         User tmp = ConverterUser.convertToUser(userDto) ;
         userRepository.save(tmp) ;
     }
-
-//    @Override
-//    public User createUser(UserDto userDto) {
-//        User u = ConverterUser.convertToUser(userDto)  ;
-//
-//
-//        return null;
-//    }
-
 
 }

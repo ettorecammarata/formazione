@@ -107,27 +107,7 @@ public class ChargeServiceImpl implements ChargeService {
         Set<Charge> mySet = chargeRepository.findByDayBetweenAndUserId(currentMonth.getBegin(),currentMonth.getEnd(),currentMonth.getUser()) ;
         Set<ChargeDto> mySetDto = ConverterCharge.convertToSetOfChargeDto(mySet) ;
         List<ChargeDto> listDto = mySetDto.stream().toList();
-
-        System.out.println("set");
-        for (Charge c :mySet) {
-            System.out.println(c);
-        }
-
-        System.out.println("mySetDto");
-        for (ChargeDto c :mySetDto) {
-            System.out.println(c);
-        }
-
-        System.out.println("listDto");
-        for (ChargeDto c : listDto) {
-            System.out.println(c);
-        }
-
-
-        System.out.println("sorted");
-        for (ChargeDto c : MyUtilities.sort(listDto)) {
-            System.err.println(c);
-        }
+        MyUtilities.sort(listDto) ;
         return listDto;
     }
 
@@ -139,44 +119,8 @@ public class ChargeServiceImpl implements ChargeService {
         Date begin = cal.getTime() ;
         cal.set(currentMonth.getYear() , MyUtilities.getMonth(currentMonth.getMonth()) ,MyUtilities.getEnd(begin) , 23 , 59 , 59);
         Date end = cal.getTime() ;
-
         Set<ChargeDto> mySet = ConverterCharge.convertToSetOfChargeDto(chargeRepository.findByDayBetweenAndUserId(begin,end,currentMonth.getUser())) ;
-
         return mySet ;
-
-
-
-
-
-
-
-
-
-
-
-
-//        System.out.println("Set");
-//        for (ChargeDto cMySet :mySet ) {
-//            System.err.println(cMySet);
-//        }
-//
-//        List<ChargeDto > listaDisodinata = mySet.stream().toList() ;
-//
-//        System.out.println("risultato disordinato : ");
-//
-//        for (ChargeDto c : listaDisodinata) {
-//            System.out.println(c);
-//        }
-//
-//        List<ChargeDto > listaOrdinata = MyUtilities.sort(listaDisodinata) ;
-//
-//        System.out.println("risultato ordinata : ");
-//        for (ChargeDto c :listaOrdinata ) {
-//            System.out.println(c);
-//        }
-
-
-
     }
 
     @Override
@@ -190,11 +134,5 @@ public class ChargeServiceImpl implements ChargeService {
         m.printMySheet();
         return m ;
     }
-
-//    @Override
-//    public List<ChargeDto> findAndSortDay(ChargeDayDto chargeDayDto) {
-//        return null;
-//    }
-
 
 }

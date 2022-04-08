@@ -26,13 +26,13 @@ public class UserProject {
     @Column(name = "rolloff_date")
     private Date rollOffDate;
 
+    //    @JsonManagedReference
     @ManyToOne
-//    @JsonManagedReference
     @JoinColumn(name = "user_id")
     private User user;
 
+    //    @JsonManagedReference
     @ManyToOne
-//    @JsonManagedReference
     @JoinColumn(name = "project_id")
     private Project project;
 

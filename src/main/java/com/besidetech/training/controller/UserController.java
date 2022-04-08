@@ -1,15 +1,19 @@
 package com.besidetech.training.controller;
 
+import com.besidetech.training.controller.logger.LoggingController;
 import com.besidetech.training.exception.TimesheetException;
 import com.besidetech.training.modelDto.UserDto;
+import com.besidetech.training.restmodel.RestCollectionResponse;
 import com.besidetech.training.restmodel.RestResponse;
 import com.besidetech.training.restmodel.restresources.RestResources;
 import com.besidetech.training.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Set;
 
 @RestController
 @RequestMapping(RestResources.REST_USER)
@@ -17,6 +21,18 @@ public class UserController extends AbstractResponse<UserDto> {
 
     @Autowired
     UserService userService;
+    @Autowired
+    LoggingController loggingController ;
+
+    @GetMapping(RestResources.GET_ALL)
+    RestCollectionResponse<UserDto> getAll() {
+        Set<UserDto> myUserDto = userService.getAll();
+        if (myUserDto.isEmpty())
+            return createCollectionResponse(500,  AbstractResponse.USER_NOT_FOUND, null);
+        else
+            return createCollectionResponse(200, AbstractResponse.USER_GET, myUserDto);
+    }
+
 
     @GetMapping(RestResources.FIND + RestResources.ID)
     RestResponse<UserDto> findId(@PathVariable("id") Integer id) {
@@ -24,7 +40,7 @@ public class UserController extends AbstractResponse<UserDto> {
         if (myUserDto == null)
             return createResponse(500, id + AbstractResponse.USER_NOT_FOUND, null);
         else
-            return createResponse(200, AbstractResponse.GETTED_USER , myUserDto);
+            return createResponse(200, AbstractResponse.USER_GET, myUserDto);
     }
 
 //    il file XML da postare deve essere wrappato tra i tag <Creation></Creation>
@@ -37,7 +53,7 @@ public class UserController extends AbstractResponse<UserDto> {
         }
         try {
             userService.save(user);
-            return createResponse(200, AbstractResponse.SAVED_USER, null);
+            return createResponse(200, AbstractResponse.USER_SAVE, null);
         } catch (TimesheetException e) {
             return createResponse(500, e.getMessage(), null);
         }
@@ -49,9 +65,9 @@ public class UserController extends AbstractResponse<UserDto> {
         user.setId(tmp.getId());
         try {
             userService.update(user);
-            return createResponse(200, AbstractResponse.USER_UPDATED, user);
+            return createResponse(200, AbstractResponse.USER_UPDATE, user);
         } catch (TimesheetException f) {
-            return createResponse(500, AbstractResponse.USER_NOT_UPDATED, null);
+            return createResponse(500, AbstractResponse.USER_FAILED_UPDATE, null);
         }
     }
 
@@ -59,7 +75,7 @@ public class UserController extends AbstractResponse<UserDto> {
     RestResponse<UserDto> delete(@PathVariable("id") Integer id) {
         try {
             userService.delete(id);
-            return createResponse(200, AbstractResponse.USER_DELETED, null);
+            return createResponse(200, AbstractResponse.USER_DELETE, null);
         } catch (TimesheetException e) {
             return createResponse(500, e.getMessage(), null);
         }

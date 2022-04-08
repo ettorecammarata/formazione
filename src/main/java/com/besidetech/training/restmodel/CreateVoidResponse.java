@@ -7,13 +7,6 @@ public class CreateVoidResponse<T> {
 
     public CreateVoidResponse() {}
 
-
-    public void setStatus(Integer status) {
-
-
-    }
-
-    public void setMessage(String message) {
-
-    }
+    public void setStatus(Integer status) {}
+    public void setMessage(String message) {}
 }

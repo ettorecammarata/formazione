@@ -3,6 +3,7 @@ package com.besidetech.training.modelDto;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 public class UserDto implements Comparable<UserDto>{
 
@@ -58,7 +59,17 @@ public class UserDto implements Comparable<UserDto>{
     @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 0, max = 63)
     private String mobile ;
 
-//    @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 0, max = 8)
+    private List<Integer> rules ;
+
+    public List<Integer> getRules() {
+        return rules;
+    }
+
+    public void setRules(List<Integer> rules) {
+        this.rules = rules;
+    }
+
+    //    @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 0, max = 8)
     private Float load_cost ;
 
 //    @Size(message = "la lunghezza dell'id deve essere compresa tra 1 e 10", min = 0, max = 5)
@@ -300,34 +311,6 @@ public class UserDto implements Comparable<UserDto>{
 //    }
 
 
-    public UserDto(Integer id, Date created, Integer created_by, Date last_update, Integer last_update_by, String username, String password, String email, Boolean active, String name, String surname, char gender, String level, String phone, String mobile, Float load_cost, Integer bill_code, Float seat_charge, Float daily_hours, Integer profile_id, String note, String confirm_key, String avatar, Integer page_size, String notifications) {
-        this.id = id;
-        this.created = created;
-        this.created_by = created_by;
-        this.last_update = last_update;
-        this.last_update_by = last_update_by;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.active = active;
-        this.name = name;
-        this.surname = surname;
-        this.gender = gender;
-        this.level = level;
-        this.phone = phone;
-        this.mobile = mobile;
-        this.load_cost = load_cost;
-        this.bill_code = bill_code;
-        this.seat_charge = seat_charge;
-        this.daily_hours = daily_hours;
-        this.profile_id = profile_id;
-        this.note = note;
-        this.confirm_key = confirm_key;
-        this.avatar = avatar;
-        this.page_size = page_size;
-        this.notifications = notifications;
-    }
-
     public UserDto() {
     }
 
@@ -370,4 +353,5 @@ public class UserDto implements Comparable<UserDto>{
                 return -1 ;
             return 0;
         }
+
 }
